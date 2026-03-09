@@ -1,2 +1,32 @@
 # Cittel Website
-De website van cittel copens computercentrum
+
+De website van Cittel – Coppens Computercenter, Maldegem.
+
+## Tech stack
+
+Plain HTML · CSS · Vanilla JS — geen framework, geen build tool nodig.
+
+## Structuur
+
+```
+cittel/
+├── index.html        # Homepage
+├── contact.html      # Contactpagina
+├── privacy.html      # Privacybeleid (wettelijk verplicht)
+├── css/
+│   └── style.css     # Alle styling
+├── js/
+│   └── main.js       # Scripts (nav, formulier, ...)
+├── img/              # Afbeeldingen
+└── download/
+    ├── WIN/          # TeamViewer Windows
+    └── MAC/          # TeamViewer Mac
+```
+
+## Lokaal starten
+
+Gewoon `index.html` openen in je browser, of via Live Server in VS Code.
+
+## Deployment
+
+Uploaden via WinSCP naar de server van Cittel.
