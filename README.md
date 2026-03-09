@@ -29,4 +29,4 @@ Gewoon `index.html` openen in je browser, of via Live Server in VS Code.
 
 ## Deployment
 
-Uploaden via WinSCP naar de server van Cittel.
+Uploaden via WinSCP naar de server van Cittel. 
