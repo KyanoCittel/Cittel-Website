@@ -1,144 +1,1015 @@
+/* =============================================
+   Cittel Computercentrum — Main Stylesheet
+   ============================================= */
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
 
 body {
-    margin: 0;
-    font-family: "Roboto", sans-serif;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    color: #1a1a2e;
+    background: #ffffff;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* ---------- Top Bar ---------- */
+.top-bar {
+    background: #0f1b2d;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    padding: 0.5rem 0;
+}
+
+.top-bar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.top-bar a {
+    color: #4fc3f7;
     font-weight: 500;
 }
 
+.top-bar a:hover {
+    color: #fff;
+}
+
+.top-bar i {
+    margin-right: 0.4rem;
+}
+
+/* ---------- Navigation ---------- */
 nav {
-    height: 5rem;
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-inner {
     display: flex;
     align-items: center;
-    padding: 0 1.25rem;
-    box-sizing: border-box;
-    gap: 1rem;
+    justify-content: space-between;
+    height: 4.5rem;
 }
 
-nav img {
-    height: 100%;
+.nav-logo img {
+    height: 3.5rem;
 }
 
-nav ul {
-    list-style: none;
-    margin: 0 0 0 auto;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-}
-
-nav ul li {
+.mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #1a1a2e;
     cursor: pointer;
-    color: rgb(0, 0, 0);
+}
+
+/* Hidden on desktop, shown in mobile menu */
+.nav-hours-item {
+    display: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-links a {
     font-size: 0.95rem;
-    white-space: nowrap;
+    font-weight: 500;
+    color: #3a3a5c;
+    transition: color 0.2s;
+    padding: 0.25rem 0;
 }
 
-nav ul li.teamviewer {
-    background-color: #0066cc;
-    color: white;
-    padding: 0.45rem 1rem;
-    border-radius: 4px;
-    font-weight: 600;
+.nav-links a:hover,
+.nav-links a.active {
+    color: #0d6efd;
 }
 
-nav ul li.teamviewer:hover {
-    background-color: #0052a3;
+.btn-nav-tv {
+    background: #0d6efd;
+    color: #fff !important;
+    padding: 0.55rem 1.2rem !important;
+    border-radius: 8px;
+    font-weight: 600 !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: background 0.2s, transform 0.15s;
 }
 
-/* Hero */
+.btn-nav-tv:hover {
+    background: #0b5ed7;
+    transform: translateY(-1px);
+}
+
+/* ---------- Hero ---------- */
 .hero {
-    min-height: 50rem;
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0.1) 100%), url(../img/winkel-front.png);
+    position: relative;
+    min-height: 580px;
+    background-image: url(../img/winkel-front2.jpg);
+    background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    padding: 4rem 2rem 4rem 6rem;
-    box-sizing: border-box;
-    text-align: left;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:  rgba(15, 27, 45, 0.7) 50% 50% / cover;
 }
 
 .hero-content {
-    max-width: 700px;
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    padding: 5rem 0;
 }
 
 .hero-content h1 {
-    margin: 0 0 1rem;
-    font-size: clamp(1.75rem, 5vw, 3rem);
-    font-weight: 700;
-    color: white;
-    line-height: 1.2;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
 }
 
 .hero-content p {
-    margin: 0 0 2rem;
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-size: clamp(1rem, 2vw, 1.15rem);
     color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 2rem;
+    line-height: 1.7;
 }
 
 .hero-actions {
     display: flex;
     gap: 1rem;
-    justify-content: flex-start;
     flex-wrap: wrap;
+    margin-bottom: 2.5rem;
 }
 
 .hero-actions a {
-    text-decoration: none;
-    font-family: "Roboto", sans-serif;
     font-weight: 600;
     font-size: 1rem;
-    padding: 0.75rem 1.75rem;
-    border-radius: 4px;
-    transition: background-color 0.2s, color 0.2s;
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    transition: background 0.2s, transform 0.15s, border-color 0.2s;
+    display: inline-flex;
+    align-items: center;
 }
 
 .btn-primary {
-    background-color: #0066cc;
-    color: white;
+    background: #0d6efd;
+    color: #fff;
 }
 
 .btn-primary:hover {
-    background-color: #0052a3;
+    background: #0b5ed7;
+    transform: translateY(-1px);
 }
 
 .btn-secondary {
-    background-color: transparent;
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(4px);
 }
 
 .btn-secondary:hover {
-    border-color: white;
+    background: rgba(255, 255, 255, 0.18);
+    border-color: #fff;
 }
 
-/* Responsive */
-@media (max-width: 600px) {
-    nav {
-        flex-wrap: wrap;
-        height: auto;
-        padding: 0.75rem 1rem;
+.hero-badges {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.hero-badge {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hero-badge i {
+    color: #4fc3f7;
+    font-size: 1rem;
+}
+
+/* ---------- USP Section ---------- */
+.usp {
+    background: #f7f8fc;
+    padding: 4rem 0;
+    margin-top: -2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.usp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.usp-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.usp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.usp-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #e8f0fe;
+    color: #0d6efd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    margin: 0 auto 1rem;
+}
+
+.usp-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #1a1a2e;
+}
+
+.usp-card p {
+    font-size: 0.95rem;
+    color: #5a5a7a;
+    line-height: 1.6;
+}
+
+/* ---------- Diensten Section ---------- */
+.diensten {
+    padding: 5rem 0;
+    background: #ffffff;
+}
+
+.section-title {
+    text-align: center;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 0.75rem;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: #5a5a7a;
+    font-size: 1.05rem;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.diensten-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.dienst-card {
+    background: #f7f8fc;
+    border-radius: 12px;
+    padding: 1.75rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid transparent;
+}
+
+.dienst-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    border-color: #0d6efd;
+}
+
+.dienst-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background: #e8f0fe;
+    color: #0d6efd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.dienst-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 0.5rem;
+}
+
+.dienst-card p {
+    font-size: 0.9rem;
+    color: #5a5a7a;
+    line-height: 1.6;
+}
+
+/* ---------- Remote / TeamViewer Section ---------- */
+.remote {
+    background: #0f1b2d;
+    padding: 5rem 0;
+}
+
+.remote-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.remote-text h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.remote-text p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.remote-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.remote-step {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+}
+
+.step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #0d6efd;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.remote-downloads {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.download-btn {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    max-width: 100%;
+}
+
+.download-btn i {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.download-btn strong {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 0.15rem;
+}
+
+.download-btn small {
+    opacity: 0.7;
+    font-size: 0.85rem;
+}
+
+.download-btn.windows {
+    background: #0d6efd;
+    color: #fff;
+}
+
+.download-btn.windows:hover {
+    background: #0b5ed7;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(13, 110, 253, 0.35);
+}
+
+.download-btn.mac {
+    background: #1e293b;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.download-btn.mac:hover {
+    background: #334155;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Info Bar ---------- */
+.info-bar {
+    background: #f7f8fc;
+    padding: 3.5rem 0;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.info-item > i {
+    font-size: 1.5rem;
+    color: #0d6efd;
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+}
+
+.info-item h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 0.25rem;
+}
+
+.info-item p {
+    font-size: 0.92rem;
+    color: #5a5a7a;
+    line-height: 1.6;
+}
+
+.info-item a {
+    color: #0d6efd;
+    font-weight: 500;
+}
+
+.info-item a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Footer ---------- */
+footer {
+    background: #0f1b2d;
+    color: rgba(255, 255, 255, 0.7);
+    padding-top: 3.5rem;
+}
+
+.footer-inner {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-brand img {
+    height: 2.5rem;
+    margin-bottom: 1rem;
+    filter: brightness(0) invert(1);
+}
+
+.footer-brand p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    max-width: 320px;
+}
+
+.footer-social {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.75rem;
+}
+
+.footer-social a {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: background 0.2s;
+}
+
+.footer-social a:hover {
+    background: #0d6efd;
+}
+
+.footer-nav h4,
+.footer-contact h4 {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.footer-nav ul {
+    list-style: none;
+}
+
+.footer-nav li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-nav a {
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.footer-nav a:hover {
+    color: #4fc3f7;
+}
+
+.footer-contact p {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.footer-contact a {
+    color: #4fc3f7;
+}
+
+.footer-contact a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    padding: 1.25rem 0;
+    text-align: center;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* =============================================
+   Responsive
+   ============================================= */
+@media (max-width: 1024px) {
+    .diensten-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    nav img {
-        height: 2.5rem;
+    .remote-content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
     }
 
-    nav ul {
+    .footer-inner {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Top bar */
+    .top-bar {
+        font-size: 0.78rem;
+        padding: 0.4rem 0;
+    }
+
+    .top-bar-inner {
+        justify-content: center;
+        text-align: center;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    /* Nav */
+    .mobile-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        transition: background 0.2s;
+        position: relative;
+        z-index: 101;
+    }
+
+    .mobile-toggle:hover {
+        background: #f0f1f5;
+    }
+
+    .nav-inner {
+        position: relative;
+        height: 3.75rem;
+    }
+
+    .nav-logo img {
+        height: 2.75rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        position: fixed;
+        top: 3.75rem;
+        left: 0;
+        right: 0;
+        height: calc(100dvh - 3.75rem);
+        background: #fff;
+        padding: 0 1.5rem;
+        gap: 0;
+        z-index: 99;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        transition: opacity 0.25s ease,
+                    visibility 0s 0.26s,
+                    transform 0.25s ease;
+    }
+
+    .nav-links.open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        padding: 1.5rem 1.5rem 2rem;
+        justify-content: space-between;
+        transition: opacity 0.25s ease,
+                    visibility 0s 0s,
+                    transform 0.25s ease;
+    }
+
+    /* Hide TeamViewer nav button on mobile */
+    .nav-links li:has(.btn-nav-tv) {
+        display: none;
+    }
+
+    .nav-links li {
+        border-bottom: 1px solid #f0f1f5;
+    }
+
+    .nav-links li:last-child {
+        border-bottom: none;
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+        padding: 1.1rem 0;
+        display: block;
+    }
+
+    /* Opening hours in mobile menu */
+    .nav-hours-item {
+        display: block;
+        border-bottom: none !important;
+        margin-top: auto;
+        padding-top: 1.5rem;
+        border-top: 2px solid #f0f1f5 !important;
+    }
+
+    .nav-hours {
+        background: #f7f8fc;
+        border-radius: 12px;
+        padding: 1.5rem 1.5rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid #e2e4ea;
+    }
+
+    .nav-hours > i {
+        color: #0d6efd;
+        font-size: 1.5rem;
+        margin-top: 0.15rem;
+        flex-shrink: 0;
+    }
+
+    .nav-hours strong {
+        display: block;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 0.5rem;
+    }
+
+    .nav-hours span {
+        display: block;
+        font-size: 1rem;
+        color: #5a5a7a;
+        line-height: 1.8;
+    }
+
+    .nav-hours-call {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        background: #0d6efd;
+        color: #fff !important;
+        border-radius: 10px;
+        padding: 1.1rem 1rem !important;
+        font-weight: 600;
+        font-size: 1.15rem !important;
+        text-align: center;
+    }
+
+    /* Hero */
+    .hero {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        min-height: auto;
+    }
+
+    .hero-overlay {
+        background: rgba(15, 27, 45, 0.92);
+    }
+
+    .hero-content {
+
+        padding: 3.5rem 0 3rem;
+    }
+
+    .hero-content h1 {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-content p br {
+        display: none;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        margin-bottom: 2rem;
+    }
+
+    .hero-actions a {
+        text-align: center;
+        justify-content: center;
+        padding: 0.9rem 1.5rem;
+        font-size: 1rem;
         width: 100%;
-        justify-content: flex-end;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-        margin: 0.4rem 0 0;
     }
 
-    nav ul li {
+    .hero-badges {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    .hero-badge {
         font-size: 0.85rem;
     }
 
-    .hero {
-        padding: 4rem 2rem;
+    /* USP */
+    .usp {
+        margin-top: 0;
+        padding: 2.5rem 0;
+    }
+
+    .usp-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .usp-card {
+        padding: 1.5rem 1.25rem;
+        text-align: center;
+    }
+
+    .usp-icon {
+        margin: 0 auto 0.75rem;
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+
+    .usp-card h3 {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .usp-card p {
+        font-size: 0.88rem;
+    }
+
+    /* Diensten */
+    .diensten {
+        padding: 3rem 0;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+
+    .diensten-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .dienst-card {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0;
+    }
+
+    .dienst-icon {
+        margin-bottom: 0.75rem;
+        flex-shrink: 0;
+    }
+
+    .dienst-card h3 {
+        font-size: 1.05rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .dienst-card p {
+        font-size: 0.88rem;
+    }
+
+    /* Hide TeamViewer / Remote section on mobile */
+    .remote {
+        display: none;
+    }
+
+    /* Info bar */
+    .info-bar {
+        padding: 2.5rem 0;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .info-item {
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid #e2e4ea;
+    }
+
+    .info-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    /* Footer */
+    .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .footer-brand img {
+        height: 2rem;
+    }
+
+    /* Hide Remote Support link in footer on mobile */
+    .footer-nav a[href="#remote"] {
+        display: none;
+    }
+
+    .footer-bottom {
+        font-size: 0.75rem;
+        padding: 1rem 0;
+    }
+
+    .footer-bottom p {
+        line-height: 1.5;
+    }
+}
+
+/* ---------- Small phones ---------- */
+@media (max-width: 400px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .hero-actions a {
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .usp-card {
+        padding: 1.25rem 1rem;
+    }
+
+    .dienst-card {
+        padding: 1rem;
+    }
+
+    .download-btn {
+        padding: 1rem 1.25rem;
+        gap: 1rem;
+    }
+
+    .download-btn i {
+        font-size: 2rem;
+    }
+
+    .download-btn strong {
+        font-size: 1rem;
+    }
+
+    .info-item {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    .remote-text h2 {
+        font-size: 1.25rem;
+    }
+
+    .top-bar-inner span {
+        font-size: 0.75rem;
     }
 }
