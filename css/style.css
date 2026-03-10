@@ -209,14 +209,14 @@ nav {
 }
 
 .btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
+    background: transparent;
     color: #fff;
-    border: 2px solid rgba(255, 255, 255, 0.35);
+    border: 2px solid rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(4px);
 }
 
 .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.15);
     border-color: #fff;
 }
 
@@ -283,14 +283,14 @@ nav {
 
 .usp-card h3 {
     font-size: 1.15rem;
-    font-weight: 700;
+    font-weight: 800;
     margin-bottom: 0.5rem;
     color: #1a1a2e;
 }
 
 .usp-card p {
     font-size: 0.95rem;
-    color: #5a5a7a;
+    color: #6b7280;
     line-height: 1.6;
 }
 
@@ -955,6 +955,7 @@ footer {
         transition: background 0.2s;
         position: relative;
         z-index: 101;
+        background: none;
     }
 
     .mobile-toggle:hover {
@@ -964,6 +965,7 @@ footer {
     .nav-inner {
         position: relative;
         height: 3.75rem;
+        padding: 0 0.25rem;
     }
 
     .nav-logo img {
@@ -1085,22 +1087,23 @@ footer {
     }
 
     .hero-overlay {
-        background: rgba(15, 27, 45, 0.92);
+        background: linear-gradient(160deg, rgba(13,21,38,0.88) 0%, rgba(13,21,38,0.65) 100%);
     }
 
     .hero-content {
-
         padding: 4.5rem 0 4rem;
+        text-align: center;
     }
 
     .hero-content h1 {
-        font-size: 2.1rem;
+        font-size: 2.7rem;
         margin-bottom: 1.1rem;
     }
 
     .hero-content p {
-        font-size: 1.05rem;
+        font-size: 1rem;
         margin-bottom: 1.75rem;
+        color: rgba(255,255,255,0.85);
     }
 
     .hero-content p br {
@@ -1115,18 +1118,24 @@ footer {
     .hero-actions a {
         text-align: center;
         justify-content: center;
-        padding: 0.9rem 1.5rem;
-        font-size: 1rem;
+        padding: 0.7rem 1.25rem;
+        font-size: 0.9rem;
         width: 100%;
     }
 
     .hero-badges {
-        flex-direction: column;
-        gap: 0.6rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem 1rem;
     }
 
     .hero-badge {
-        font-size: 0.85rem;
+        font-size: 0.82rem;
+        background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 99px;
+        padding: 0.3rem 0.75rem;
     }
 
     /* USP */
@@ -1141,24 +1150,28 @@ footer {
     }
 
     .usp-card {
-        padding: 1.5rem 1.25rem;
-        text-align: center;
+        padding: 1.25rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-align: left;
     }
 
     .usp-icon {
-        margin: 0 auto 0.75rem;
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
+        margin: 0;
+        width: 46px;
+        height: 46px;
+        font-size: 1.1rem;
+        flex-shrink: 0;
     }
 
     .usp-card h3 {
         font-size: 1rem;
-        margin-bottom: 0.3rem;
+        margin-bottom: 0.2rem;
     }
 
     .usp-card p {
-        font-size: 0.88rem;
+        font-size: 0.85rem;
     }
 
     /* Diensten */
@@ -1290,7 +1303,7 @@ footer {
     }
 
     .hero-content h1 {
-        font-size: 1.5rem;
+        font-size: 2.1rem;
     }
 
     .hero-actions a {
