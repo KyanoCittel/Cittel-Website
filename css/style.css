@@ -1203,18 +1203,24 @@ footer {
         font-size: 0.88rem;
     }
 
-    /* Remote section on mobile: show simplified */
+    /* Remote section on mobile: call only */
     .remote {
         display: block;
         padding: 3rem 0;
     }
 
-    .remote-call-number {
-        font-size: 1.5rem;
+    .remote-header p,
+    .remote-divider,
+    .remote-downloads {
+        display: none;
     }
 
-    .remote-dl-buttons {
-        grid-template-columns: 1fr;
+    .remote-call-number {
+        font-size: 1.6rem;
+    }
+
+    .remote-call-cta {
+        padding: 1.5rem;
     }
 
     /* Info bar */
