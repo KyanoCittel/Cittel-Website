@@ -44,7 +44,7 @@ img {
     background: #0f1b2d;
     color: rgba(255, 255, 255, 0.8);
     font-size: 0.85rem;
-    padding: 0.5rem 0;
+    padding: 0.6rem 0;
 }
 
 .top-bar-inner {
@@ -53,6 +53,7 @@ img {
     align-items: center;
     flex-wrap: wrap;
     gap: 0.5rem;
+    letter-spacing: 0.01em;
 }
 
 .top-bar a {
@@ -142,8 +143,8 @@ nav {
 /* ---------- Hero ---------- */
 .hero {
     position: relative;
-    min-height: 580px;
-    background-image: url(../img/winkel-front2.jpg);
+    min-height: 720px;
+    background-image: url(../img/winkel-front4.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -155,42 +156,42 @@ nav {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background:  rgba(75, 79, 84, 0.7) 90% 10% / cover;
+    background:  rgba(13, 21, 38, 0.75) 55%;
 }
 
 .hero-content {
     position: relative;
     z-index: 1;
-    max-width: 680px;
-    padding: 5rem 0;
+    max-width: 760px;
+    padding: 7rem 0;
 }
 
 .hero-content h1 {
-    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-size: clamp(2.4rem, 6vw, 4rem);
     font-weight: 800;
     color: #ffffff;
-    line-height: 1.15;
-    margin-bottom: 1.25rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
 }
 
 .hero-content p {
-    font-size: clamp(1rem, 2vw, 1.15rem);
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
     color: rgba(255, 255, 255, 0.75);
-    margin-bottom: 2rem;
-    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
 }
 
 .hero-actions {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
 }
 
 .hero-actions a {
     font-weight: 600;
-    font-size: 1rem;
-    padding: 0.85rem 2rem;
+    font-size: 1.1rem;
+    padding: 1rem 2.25rem;
     border-radius: 8px;
     transition: background 0.2s, transform 0.15s, border-color 0.2s;
     display: inline-flex;
@@ -227,7 +228,7 @@ nav {
 
 .hero-badge {
     color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -236,14 +237,13 @@ nav {
 
 .hero-badge i {
     color: #4fc3f7;
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 /* ---------- USP Section ---------- */
 .usp {
     background: #f7f8fc;
     padding: 4rem 0;
-    margin-top: -2rem;
     position: relative;
     z-index: 2;
 }
@@ -296,13 +296,36 @@ nav {
 
 /* ---------- Diensten Section ---------- */
 .diensten {
-    padding: 5rem 0;
-    background: #ffffff;
+    padding: 5rem 0 6rem;
+    background: #f7f8fc;
+}
+
+.section-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #FFB61B;
+    margin-bottom: 0.85rem;
+}
+
+.section-label::before,
+.section-label::after {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 2px;
+    background: #FFB61B;
+    border-radius: 2px;
 }
 
 .section-title {
     text-align: center;
-    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
     font-weight: 800;
     color: #1a1a2e;
     margin-bottom: 0.75rem;
@@ -321,34 +344,36 @@ nav {
 .diensten-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    gap: 1.25rem;
 }
 
 .dienst-card {
-    background: #f7f8fc;
-    border-radius: 12px;
+    background: #ffffff;
+    border-radius: 16px;
     padding: 1.75rem;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: 1px solid transparent;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    border: 1.5px solid #eeeff5;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .dienst-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-    border-color: #0d6efd;
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(255, 182, 27, 0.15), 0 4px 12px rgba(0,0,0,0.06);
+    border-color: #FFB61B;
 }
 
 .dienst-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
-    background: #e8f0fe;
-    color: #0d6efd;
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: #fff8e6;
+    color: #FFB61B;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    margin-bottom: 1.1rem;
+    border: 1.5px solid #ffe9a0;
 }
 
 .dienst-card h3 {
@@ -618,6 +643,132 @@ footer {
     color: rgba(255, 255, 255, 0.4);
 }
 
+/* ---------- Partner Strip ---------- */
+.partner-strip {
+    background: #ffffff;
+    border-bottom: 1px solid #eaecf2;
+    padding: 1.25rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.partner-strip-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.partner-strip-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #9a9ab0;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0;
+}
+
+.partner-strip-label i {
+    color: #0d6efd;
+    font-size: 0.95rem;
+}
+
+.partner-logos {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.partner-logo-telenet {
+    height: 32px;
+    width: auto;
+}
+
+.partner-divider {
+    width: 1px;
+    height: 28px;
+    background: #e0e2ea;
+    margin-left: auto;
+}
+
+.partner-stats {
+    display: flex;
+    gap: 2rem;
+}
+
+.partner-stat {
+    text-align: center;
+}
+
+.partner-stat strong {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #1a1a2e;
+    line-height: 1;
+    margin-bottom: 0.15rem;
+}
+
+.partner-stat span {
+    font-size: 0.7rem;
+    color: #5a5a7a;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* ---------- Featured Dienst Card ---------- */
+.dienst-card--telenet {
+    border-color: #ccd9fd !important;
+    background: linear-gradient(145deg, #eef3ff 0%, #f5f8ff 100%);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(13,110,253,0.07);
+}
+
+.dienst-card--telenet:hover {
+    box-shadow: 0 16px 40px rgba(13, 110, 253, 0.18), 0 4px 12px rgba(0,0,0,0.06);
+    border-color: #0d6efd !important;
+}
+
+.dienst-card--telenet::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #0d6efd;
+}
+
+.dienst-badge {
+    display: inline-flex;
+    align-items: center;
+    background: #0d6efd;
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.2rem 0.65rem;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.75rem;
+}
+
+.dienst-icon--img {
+    border: 1px solid #dce6ff;
+    padding: 0.5rem;
+}
+
+.dienst-icon--img img {
+    height: 26px;
+    width: auto;
+    margin: 0 auto;
+}
+
 /* ---------- Store status badge ---------- */
 .store-status {
     display: inline-flex;
@@ -689,15 +840,7 @@ footer {
 
     /* Top bar */
     .top-bar {
-        font-size: 0.78rem;
-        padding: 0.4rem 0;
-    }
-
-    .top-bar-inner {
-        justify-content: center;
-        text-align: center;
-        flex-direction: column;
-        gap: 0.2rem;
+        display: none;
     }
 
     /* Nav */
@@ -846,17 +989,17 @@ footer {
 
     .hero-content {
 
-        padding: 3.5rem 0 3rem;
+        padding: 4.5rem 0 4rem;
     }
 
     .hero-content h1 {
-        font-size: 1.75rem;
-        margin-bottom: 1rem;
+        font-size: 2.1rem;
+        margin-bottom: 1.1rem;
     }
 
     .hero-content p {
-        font-size: 0.95rem;
-        margin-bottom: 1.5rem;
+        font-size: 1.05rem;
+        margin-bottom: 1.75rem;
     }
 
     .hero-content p br {
@@ -1007,6 +1150,21 @@ footer {
     .footer-bottom p {
         line-height: 1.5;
     }
+
+    /* Partner strip */
+    .partner-strip-label,
+    .partner-divider {
+        display: none;
+    }
+
+    .partner-strip-inner {
+        justify-content: center;
+        gap: 1.25rem;
+    }
+
+    .partner-stats {
+        gap: 1.5rem;
+    }
 }
 
 /* ---------- Small phones ---------- */
@@ -1060,5 +1218,104 @@ footer {
 
     .top-bar-inner span {
         font-size: 0.75rem;
+    }
+}
+
+/* ---------- Facebook Section ---------- */
+.facebook-section {
+    background: #f0f2f5;
+    padding: 5rem 0;
+}
+
+.facebook-inner {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 4rem;
+    align-items: center;
+}
+
+.facebook-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #1877f2;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.facebook-label i {
+    font-size: 1.2rem;
+}
+
+.facebook-text h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.facebook-text p {
+    font-size: 1.05rem;
+    color: #5a5a7a;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 420px;
+}
+
+.facebook-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #1877f2;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.85rem 1.75rem;
+    border-radius: 8px;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.facebook-cta:hover {
+    background: #1465d8;
+    transform: translateY(-1px);
+}
+
+.facebook-embed-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.facebook-embed-wrap iframe {
+    max-width: 100%;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+}
+
+@media (max-width: 1024px) {
+    .facebook-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .facebook-text p {
+        max-width: 100%;
+    }
+
+    .facebook-embed-wrap iframe {
+        width: 100%;
+        min-height: 420px;
+    }
+}
+
+@media (max-width: 768px) {
+    .facebook-section {
+        padding: 3rem 0;
+    }
+
+    .facebook-embed-wrap iframe {
+        height: 380px;
     }
 }
