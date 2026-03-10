@@ -80,3 +80,19 @@ document.querySelectorAll('.nav-links a').forEach(function (link) {
         toggle.querySelector('i').className = 'fa-solid fa-bars';
     });
 });
+
+// Scroll-reveal animation
+var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+            var el = entry.target;
+            var delay = el.dataset.delay ? parseInt(el.dataset.delay) : 0;
+            setTimeout(function () { el.classList.add('visible'); }, delay);
+            revealObserver.unobserve(el);
+        }
+    });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(function (el) {
+    revealObserver.observe(el);
+});
