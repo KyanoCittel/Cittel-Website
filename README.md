@@ -16,7 +16,7 @@ cittel/
 ├── css/
 │   └── style.css     # Alle styling
 ├── js/
-│   └── main.js       # Scripts (nav, formulier, ...)
+│   └── script.js       # Scripts
 ├── img/              # Afbeeldingen
 └── download/
     ├── WIN/          # TeamViewer Windows
