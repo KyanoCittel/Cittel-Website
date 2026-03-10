@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Cittel Computercentrum Maldegem</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+</head>
+<body>
+
+    <!-- Top bar -->
+    <div class="top-bar">
+        <div class="container top-bar-inner">
+            <span><i class="fa-solid fa-clock"></i> Ma–Vr: 9–12u &amp; 13–18u &nbsp;|&nbsp; Za: 10–13u &nbsp;|&nbsp; Zo: Gesloten &nbsp;<span id="store-status-bar" class="store-status"></span></span>
+            <span><i class="fa-solid fa-phone"></i> <a href="tel:+3250719429">050 71 94 29</a></span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-inner">
+            <a href="index.html" class="nav-logo">
+                <img src="img/logo-d.png" alt="Cittel Computercentrum Maldegem logo">
+            </a>
+            <button class="mobile-toggle" aria-label="Menu openen">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="index.html#remote" class="btn-nav-tv"><i class="fa-solid fa-download"></i> TeamViewer</a></li>
+                <li class="nav-hours-item">
+                    <div class="nav-hours">
+                        <div>
+                            <strong style="text-align: center;">Openingsuren</strong>
+                            <span>Ma–Vr: 9:00–12:00u &amp; 13:00–18:00u</span>
+                            <span>Za: 10:00–13:00u &nbsp;&nbsp;|&nbsp;&nbsp; Zo: Gesloten</span>
+                            <span id="store-status-nav" class="store-status store-status--nav"></span>
+                        </div>
+                    </div>
+                    <a href="tel:+3250719429" class="nav-hours-call"><i class="fa-solid fa-phone"></i> 050 71 94 29</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container page-hero-content">
+            <p class="page-hero-label">Contact</p>
+            <h1>Neem contact op</h1>
+            <p>Vragen, advies of een afspraak? Wij helpen u graag verder — persoonlijk, snel en zonder omwegen.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-layout">
+
+                <!-- Left: Info cards -->
+                <div class="contact-info">
+
+                    <div class="contact-card reveal contact-card--hours">
+                        <div class="contact-card-icon"><i class="fa-solid fa-clock"></i></div>
+                        <div style="flex:1">
+                            <h4>Openingsuren</h4>
+                            <p>Ma–Vr: 9:00–12:00 &amp; 13:00–18:00<br>Za: 10:00–13:00 &nbsp;|&nbsp; Zo: Gesloten</p>
+                            <span id="store-status-info" class="store-status store-status--contact"></span>
+                        </div>
+                    </div>
+
+                    <div class="contact-card reveal" data-delay="80">
+                        <div class="contact-card-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div>
+                            <h4>Telefoon</h4>
+                            <p><a href="tel:+3250719429">050 71 94 29</a></p>
+                            <p style="font-size:0.9rem; color:#5a5a7a; font-weight:400; margin-top:0.2rem;">Ma–Vr: 9–12u &amp; 13–18u &nbsp;·&nbsp; Za: 10–13u</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-card reveal" data-delay="160">
+                        <div class="contact-card-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div>
+                            <h4>E-mail</h4>
+                            <p><a href="mailto:info@cittel.be">info@cittel.be</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-card reveal" data-delay="240">
+                        <div class="contact-card-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div>
+                            <h4>Adres</h4>
+                            <p>Koning Leopoldlaan 20D<br>9990 Maldegem</p>
+                            <a href="https://maps.google.com/?q=Koning+Leopoldlaan+20D,+9990+Maldegem" target="_blank" rel="noopener noreferrer" style="font-size:0.9rem; color:#0d6efd; font-weight:600; margin-top:0.4rem; display:inline-flex; align-items:center; gap:0.3rem;">
+                                <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem;"></i> Open in Google Maps
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="contact-map reveal" data-delay="160">
+                        <iframe
+                            src="https://maps.google.com/maps?q=Koning+Leopoldlaan+20D,+9990+Maldegem,+Belgi%C3%AB&output=embed&hl=nl"
+                            width="100%" height="100%" style="border:0;" allowfullscreen=""
+                            loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                            title="Cittel Computercentrum op de kaart"></iframe>
+                    </div>
+
+                </div>
+
+                <!-- Right: Contact form -->
+                <div class="contact-form-wrap reveal" data-delay="100">
+                    <h3>Stuur ons een bericht</h3>
+                    <p>Wij antwoorden zo snel mogelijk, normaal gezien binnen de werkdag.</p>
+                    <div id="form-feedback" style="display:none; padding:0.85rem 1rem; border-radius:10px; font-weight:600; font-size:0.95rem; margin-bottom:1rem;"></div>
+                    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="f059d7b5-7e4e-4aa5-a916-3b80ef63d4a3">
+                        <input type="hidden" name="subject" value="Nieuw contactbericht — Cittel Computercentrum">
+                        <input type="hidden" name="from_name" value="Cittel Website">
+                        <input type="checkbox" name="botcheck" style="display:none;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="voornaam">Voornaam</label>
+                                <input type="text" id="voornaam" name="voornaam" placeholder="Jan" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="achternaam">Achternaam</label>
+                                <input type="text" id="achternaam" name="achternaam" placeholder="Janssen" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mailadres</label>
+                            <input type="email" id="email" name="email" placeholder="jan@voorbeeld.be" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefoon">Telefoonnummer <span style="font-weight:400; color:#8888aa;">(optioneel)</span></label>
+                            <input type="tel" id="telefoon" name="telefoon" placeholder="0470 00 00 00">
+                        </div>
+                        <div class="form-group">
+                            <label for="onderwerp">Onderwerp</label>
+                            <select id="onderwerp" name="onderwerp">
+                                <option value="">— Kies een onderwerp —</option>
+                                <option>Herstelling / reparatie</option>
+                                <option>Verkoop / advies</option>
+                                <option>Telenet abonnement</option>
+                                <option>Remote support</option>
+                                <option>Andere vraag</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bericht">Bericht</label>
+                            <textarea id="bericht" name="bericht" placeholder="Beschrijf uw vraag of probleem zo duidelijk mogelijk..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-form" id="submit-btn">
+                            <i class="fa-solid fa-paper-plane"></i> Verstuur bericht
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <img src="img/logo.png" alt="Cittel logo">
+                <p>Coppens Computercenter BV — uw lokale IT-partner in Maldegem. Persoonlijk, snel en betrouwbaar.</p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/cittelmaldegem/" target="_blank" rel="noopener noreferrer" aria-label="Cittel op Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-nav">
+                <h4>Navigatie</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#remote">Remote Support</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p>Koning Leopoldlaan 20D<br>9990 Maldegem</p>
+                <p><a href="tel:+3250719429">050 71 94 29</a><br><a href="mailto:info@cittel.be">info@cittel.be</a></p>
+                <p>Ma–Vr: 9–12u &amp; 13–18u<br>Za: 10–13u &nbsp;|&nbsp; Zo: Gesloten</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; <span id="footer-year"></span> Coppens Computercenter BV — BE 0475.096.892</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        const form = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const feedback = document.getElementById('form-feedback');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Bezig met verzenden...';
+            feedback.style.display = 'none';
+
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    feedback.textContent = '✓ Bericht verzonden! Wij nemen zo snel mogelijk contact met u op.';
+                    feedback.style.background = 'rgba(34,197,94,0.1)';
+                    feedback.style.color = '#16a34a';
+                    feedback.style.border = '1.5px solid rgba(34,197,94,0.3)';
+                    feedback.style.display = 'block';
+                    form.reset();
+                } else {
+                    throw new Error(data.message || 'Onbekende fout');
+                }
+            } catch (err) {
+                feedback.textContent = '✗ Er is iets misgegaan. Probeer het opnieuw of bel ons op 050 71 94 29.';
+                feedback.style.background = 'rgba(239,68,68,0.08)';
+                feedback.style.color = '#dc2626';
+                feedback.style.border = '1.5px solid rgba(239,68,68,0.25)';
+                feedback.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Verstuur bericht';
+            }
+        });
+    </script>
+</body>
+</html>
