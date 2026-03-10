@@ -15,7 +15,7 @@
     <!-- Top bar -->
     <div class="top-bar">
         <div class="container top-bar-inner">
-            <span><i class="fa-solid fa-clock"></i> Ma–Vr: 9–12 &amp; 13–18 &nbsp;|&nbsp; Za: 10–13 &nbsp;|&nbsp; Zo: Gesloten</span>
+            <span><i class="fa-solid fa-clock"></i> Ma–Vr: 9–12 &amp; 13–18 &nbsp;|&nbsp; Za: 10–13 &nbsp;|&nbsp; Zo: Gesloten &nbsp;<span id="store-status-bar" class="store-status"></span></span>
             <span><i class="fa-solid fa-phone"></i> <a href="tel:+3250719429">050 71 94 29</a></span>
         </div>
     </div>
@@ -40,6 +40,7 @@
                             <strong>Openingsuren</strong>
                             <span>Ma–Vr: 9:00–12:00 &amp; 13:00–18:00</span>
                             <span>Za: 10:00–13:00 &nbsp;&nbsp;|&nbsp;&nbsp; Zo: Gesloten</span>
+                            <span id="store-status-nav" class="store-status store-status--nav"></span>
                         </div>
                     </div>
                     <a href="tel:+3250719429" class="nav-hours-call"><i class="fa-solid fa-phone"></i> 050 71 94 29</a>
@@ -185,6 +186,7 @@
                 <div>
                     <h4>Openingsuren</h4>
                     <p>Ma–Vr: 9:00–12:00 &amp; 13:00–18:00<br>Za: 10:00–13:00 &nbsp;|&nbsp; Zo: Gesloten</p>
+                    <span id="store-status-info" class="store-status store-status--info"></span>
                 </div>
             </div>
             <div class="info-item">
@@ -232,7 +234,7 @@
         </div>
         <div class="footer-bottom">
             <div class="container">
-                <p>&copy; 2026 Coppens Computercenter BV — BE 0475.096.892</p>
+                <p>&copy; <span id="footer-year"></span> Coppens Computercenter BV — BE 0475.096.892</p>
             </div>
         </div>
     </footer>

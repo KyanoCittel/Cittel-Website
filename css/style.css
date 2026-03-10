@@ -155,7 +155,7 @@ nav {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background:  rgba(15, 27, 45, 0.7) 50% 50% / cover;
+    background:  rgba(75, 79, 84, 0.7) 90% 10% / cover;
 }
 
 .hero-content {
@@ -616,6 +616,55 @@ footer {
     text-align: center;
     font-size: 0.82rem;
     color: rgba(255, 255, 255, 0.4);
+}
+
+/* ---------- Store status badge ---------- */
+.store-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 99px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.store-status::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.store-status.status-open {
+    background: rgba(34, 197, 94, 0.15);
+    color: #16a34a;
+}
+
+.store-status.status-open::before {
+    background: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+}
+
+.store-status.status-closed {
+    background: rgba(239, 68, 68, 0.12);
+    color: #dc2626;
+}
+
+.store-status.status-closed::before {
+    background: #ef4444;
+}
+
+/* Larger variant for info bar and mobile nav */
+.store-status--info,
+.store-status--nav {
+    font-size: 0.88rem;
+    padding: 0.3rem 0.75rem;
+    margin-top: 0.6rem;
 }
 
 /* =============================================
