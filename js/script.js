@@ -27,14 +27,14 @@
             if (mins >= s.o && mins < s.c) {
                 var remaining = s.c - mins;
                 var detail = remaining <= 60
-                    ? 'sluit over ' + remaining + ' min'
-                    : 'sluit om ' + fmt(s.c);
-                return { open: true, text: 'Nu open · ' + detail };
+                    ? ', sluit over ' + remaining + ' min'
+                    : ' tot ' + fmt(s.c);
+                return { open: true, text: 'Nu open' + detail };
             }
         }
         for (var i = 0; i < sessions.length; i++) {
             if (mins < sessions[i].o) {
-                return { open: false, text: 'Gesloten · opent om ' + fmt(sessions[i].o) };
+                return { open: false, text: 'Gesloten ,opent om ' + fmt(sessions[i].o) };
             }
         }
         for (var d = 1; d <= 7; d++) {
@@ -42,7 +42,7 @@
             var next = schedule[nextDay];
             if (next && next.length > 0) {
                 var label = d === 1 ? 'morgen' : dayNames[nextDay];
-                return { open: false, text: 'Gesloten · opent ' + label + ' om ' + fmt(next[0].o) };
+                return { open: false, text: 'Gesloten, opent ' + label + ' om ' + fmt(next[0].o) };
             }
         }
         return { open: false, text: 'Gesloten' };
