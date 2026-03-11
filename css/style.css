@@ -713,7 +713,7 @@ nav {
     flex-shrink: 0;
 }
 
-.info-item h4 {
+.info-item h2 {
     font-size: 1rem;
     font-weight: 700;
     color: #1a1a2e;
