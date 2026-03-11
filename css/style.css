@@ -260,12 +260,12 @@ nav {
     padding: 2rem;
     text-align: center;
     box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s ease-out;
 }
 
 .usp-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
 }
 
 .usp-icon {
@@ -351,14 +351,14 @@ nav {
     background: #ffffff;
     border-radius: 16px;
     padding: 1.75rem;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s ease-out, border-color 0.3s ease;
     border: 1.5px solid #eeeff5;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .dienst-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 16px 40px rgba(255, 182, 27, 0.15), 0 4px 12px rgba(0,0,0,0.06);
+    transform: translateY(-7px);
+    box-shadow: 0 20px 48px rgba(255, 182, 27, 0.18), 0 6px 16px rgba(0,0,0,0.07);
     border-color: #FFB61B;
 }
 
@@ -832,7 +832,7 @@ footer {
 }
 
 .dienst-card--telenet:hover {
-    box-shadow: 0 16px 40px rgba(13, 110, 253, 0.18), 0 4px 12px rgba(0,0,0,0.06);
+    box-shadow: 0 20px 48px rgba(13, 110, 253, 0.22), 0 6px 16px rgba(0,0,0,0.07);
     border-color: #0d6efd !important;
 }
 
@@ -1057,12 +1057,12 @@ footer {
     display: flex;
     align-items: center;
     gap: 1rem;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s ease-out, border-color 0.3s ease;
 }
 
 .contact-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(255,182,27,0.12), 0 4px 12px rgba(0,0,0,0.06);
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(255,182,27,0.15), 0 4px 12px rgba(0,0,0,0.07);
     border-color: #FFB61B;
 }
 
@@ -1229,6 +1229,17 @@ footer {
 .reveal.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Card-specific reveal overrides — restores box-shadow/border-color transitions
+   that .reveal would otherwise strip out due to cascade order */
+.dienst-card.reveal,
+.usp-card.reveal,
+.contact-card.reveal {
+    transition: opacity 0.6s ease,
+                transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.35s ease-out,
+                border-color 0.3s ease;
 }
 
 /* =============================================
