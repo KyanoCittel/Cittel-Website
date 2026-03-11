@@ -177,7 +177,7 @@ nav {
 .hero {
     position: relative;
     min-height: 720px;
-    background-image: url(../img/shop-front.webp);
+    background-image: url(../img/shop-front-small.webp);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
