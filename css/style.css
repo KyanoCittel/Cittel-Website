@@ -542,6 +542,26 @@ nav {
     color: rgba(255,255,255,0.85);
 }
 
+.remote-dl-alt {
+    text-align: center;
+    margin-top: 0.75rem;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.4);
+}
+
+.remote-dl-alt a {
+    color: rgba(255,255,255,0.6);
+    transition: color 0.2s;
+}
+
+.remote-dl-alt a:hover {
+    color: #fff;
+}
+
+.remote-dl-alt i {
+    font-size: 0.8rem;
+}
+
 .remote-dl-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -603,6 +623,42 @@ nav {
     background: rgba(255,255,255,0.13);
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.download-btn--recommended {
+    background: #FFB61B !important;
+    color: #1a1a2e !important;
+    border-color: #FFB61B !important;
+    position: relative;
+}
+
+.download-btn--recommended::after {
+    content: 'Aanbevolen';
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    background: #1a1a2e;
+    color: #FFB61B;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.15rem 0.5rem;
+    border-radius: 99px;
+}
+
+.download-btn--recommended:hover {
+    background: #e6a314 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(255,182,27,0.4) !important;
+}
+
+.download-btn--secondary {
+    opacity: 0.55;
+}
+
+.download-btn--secondary:hover {
+    opacity: 1;
 }
 
 /* ---------- Info Bar ---------- */

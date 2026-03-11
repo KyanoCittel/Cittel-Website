@@ -65,6 +65,44 @@
     setInterval(updateStatus, 60000);
 })();
 
+// OS-based single download button
+(function () {
+    var ua = navigator.userAgent;
+    var isMac = /Mac|iPhone|iPad|iPod/.test(ua) && !/Windows/.test(ua);
+
+    // --- Download section: show primary button, add small alt link ---
+    var winBtn = document.querySelector('.download-btn.windows');
+    var macBtn = document.querySelector('.download-btn.mac');
+    if (winBtn && macBtn) {
+        var dlButtons = document.querySelector('.remote-dl-buttons');
+        var altLink = document.createElement('p');
+        altLink.className = 'remote-dl-alt';
+
+        if (isMac) {
+            winBtn.style.display = 'none';
+            dlButtons.style.gridTemplateColumns = '1fr';
+            altLink.innerHTML = 'of <a href="download/WIN/Cittel Remote.exe"><i class="fa-brands fa-windows"></i> download voor Windows</a>';
+        } else {
+            macBtn.style.display = 'none';
+            dlButtons.style.gridTemplateColumns = '1fr';
+            altLink.innerHTML = 'of <a href="download/MAC/Cittel Remote-MacOS.zip"><i class="fa-brands fa-apple"></i> download voor Mac</a>';
+        }
+        dlButtons.parentNode.insertBefore(altLink, dlButtons.nextSibling);
+    }
+
+    // --- Nav button: correct link + icon ---
+    var navTvBtns = document.querySelectorAll('.btn-nav-tv');
+    navTvBtns.forEach(function (btn) {
+        if (isMac) {
+            btn.href = 'download/MAC/Cittel Remote-MacOS.zip';
+            btn.innerHTML = '<i class="fa-solid fa-download"></i> TeamViewer';
+        } else {
+            btn.href = 'download/WIN/Cittel Remote.exe';
+            btn.innerHTML = '<i class="fa-solid fa-download"></i> TeamViewer';
+        }
+    });
+})();
+
 // Auto-update footer year
 document.getElementById('footer-year').textContent = new Date().getFullYear();
 
