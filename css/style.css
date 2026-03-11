@@ -1604,16 +1604,40 @@ footer {
     /* Footer */
     .footer-inner {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.25rem;
+        padding-bottom: 1.75rem;
+    }
+
+    footer {
+        padding-top: 2rem;
+    }
+
+    /* Hide nav column entirely on mobile */
+    .footer-nav {
+        display: none;
     }
 
     .footer-brand img {
-        height: 2rem;
+        height: 1.75rem;
+        margin-bottom: 0.5rem;
     }
 
-    /* Hide Remote Support link in footer on mobile */
-    .footer-nav a[href="#remote"] {
-        display: none;
+    .footer-brand p {
+        font-size: 0.82rem;
+    }
+
+    .footer-social {
+        margin-top: 0.6rem;
+    }
+
+    .footer-contact h4 {
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-contact p {
+        font-size: 0.82rem;
+        margin-bottom: 0.5rem;
     }
 
     .footer-bottom {
