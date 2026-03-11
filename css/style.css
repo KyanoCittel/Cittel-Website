@@ -5,7 +5,8 @@
 /* ---------- Local Font ---------- */
 @font-face {
     font-family: 'Inter';
-    src: url('../font/Inter/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+    src: url('../font/Inter/Inter-Variable.woff2') format('woff2'),
+         url('../font/Inter/Inter-VariableFont_opsz,wght.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
