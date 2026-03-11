@@ -727,7 +727,7 @@ nav {
 }
 
 .info-item a {
-    color: #FFB61B;
+    color: #8a6000;
     font-weight: 500;
 }
 
@@ -993,8 +993,8 @@ footer {
 }
 
 .store-status.status-closed {
-    background: rgba(239, 68, 68, 0.12);
-    color: #dc2626;
+    background: #fde8e8;
+    color: #991b1b;
 }
 
 .store-status.status-closed::before {
