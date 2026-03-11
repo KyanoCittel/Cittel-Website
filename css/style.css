@@ -1433,12 +1433,19 @@ footer {
     .hero-content h1 {
         font-size: 2.7rem;
         margin-bottom: 1.1rem;
+        padding-top: 1rem;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .hero-content p {
         font-size: 1rem;
         margin-bottom: 1.75rem;
         color: rgba(255,255,255,0.85);
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .hero-content p br {
@@ -1447,6 +1454,7 @@ footer {
 
     .hero-actions {
         flex-direction: column;
+        align-items: center;
         margin-bottom: 2rem;
     }
 
@@ -1455,7 +1463,7 @@ footer {
         justify-content: center;
         padding: 0.7rem 1.25rem;
         font-size: 0.9rem;
-        width: 100%;
+        width: 80%;
     }
 
     .hero-badges {
@@ -1584,6 +1592,8 @@ footer {
     .info-item {
         padding-bottom: 1.25rem;
         border-bottom: 1px solid #e2e4ea;
+        align-items: center;
+        text-align: center;
     }
 
     .info-item:last-child {
@@ -1669,6 +1679,8 @@ footer {
 
     .info-item {
         flex-direction: column;
+        align-items: center;
+        text-align: center;
         gap: 0.5rem;
     }
 
