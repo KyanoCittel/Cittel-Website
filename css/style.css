@@ -627,28 +627,18 @@ nav {
     font-size: 0.8rem;
 }
 
-.download-btn.windows {
-    background: rgba(255,255,255,0.07);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.15);
-}
-
-.download-btn.windows:hover {
-    background: rgba(255,255,255,0.13);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-}
-
+.download-btn.windows,
 .download-btn.mac {
     background: rgba(255,255,255,0.07);
     color: #fff;
     border: 1px solid rgba(255,255,255,0.15);
 }
 
+.download-btn.windows:hover,
 .download-btn.mac:hover {
     background: rgba(255,255,255,0.13);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
 }
 
 .download-btn--recommended {
