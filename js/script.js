@@ -34,7 +34,7 @@
         }
         for (var i = 0; i < sessions.length; i++) {
             if (mins < sessions[i].o) {
-                return { open: false, text: 'Gesloten ,opent om ' + fmt(sessions[i].o) };
+                return { open: false, text: 'Gesloten, opent om ' + fmt(sessions[i].o) };
             }
         }
         for (var d = 1; d <= 7; d++) {
@@ -48,15 +48,21 @@
         return { open: false, text: 'Gesloten' };
     }
 
-    var status = getStatus();
-    var cls = status.open ? 'status-open' : 'status-closed';
-    ['store-status-bar', 'store-status-nav', 'store-status-info'].forEach(function (id) {
-        var el = document.getElementById(id);
-        if (el) {
-            el.textContent = status.text;
-            el.classList.add(cls);
-        }
-    });
+    function updateStatus() {
+        var status = getStatus();
+        var cls = status.open ? 'status-open' : 'status-closed';
+        ['store-status-bar', 'store-status-nav', 'store-status-info'].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.textContent = status.text;
+                el.classList.remove('status-open', 'status-closed');
+                el.classList.add(cls);
+            }
+        });
+    }
+
+    updateStatus();
+    setInterval(updateStatus, 60000);
 })();
 
 // Auto-update footer year
