@@ -39,6 +39,20 @@ img {
     padding: 0 1.5rem;
 }
 
+/* ---------- Large screen scaling (2K / 4K) ----------
+   0.9375vw = exactly 24px (150% of 16px) at 2560px viewport.
+   This mimics the effect of 150% browser zoom on 4K screens.
+   clamp() ensures no scaling below 1920px and caps at 36px.
+----------------------------------------------------------*/
+@media (min-width: 1921px) {
+    html {
+        font-size: clamp(16px, 0.9375vw, 36px);
+    }
+    .container {
+        max-width: clamp(1200px, 75vw, 2500px);
+    }
+}
+
 /* ---------- Top Bar ---------- */
 .top-bar {
     background: #0f1b2d;
@@ -727,7 +741,6 @@ footer {
 .footer-brand img {
     height: 2.5rem;
     margin-bottom: 1rem;
-    filter: brightness(0) invert(1);
 }
 
 .footer-brand p {
