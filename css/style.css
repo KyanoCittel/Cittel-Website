@@ -55,9 +55,11 @@ img {
     gap: 0.5rem;
     letter-spacing: 0.01em;
 }
-
+.phone-icon {
+    color: #FFB61B;
+}
 .top-bar a {
-    color: #4fc3f7;
+    color: #FFB61B;
     font-weight: 500;
 }
 
@@ -199,12 +201,12 @@ nav {
 }
 
 .btn-primary {
-    background: #0d6efd;
-    color: #fff;
+    background: #FFB61B;
+    color: #1a1a2e;
 }
 
 .btn-primary:hover {
-    background: #0b5ed7;
+    background: #e6a314;
     transform: translateY(-1px);
 }
 
@@ -236,7 +238,7 @@ nav {
 }
 
 .hero-badge i {
-    color: #4fc3f7;
+    color: #FFB61B;
     font-size: 1.1rem;
 }
 
@@ -272,8 +274,8 @@ nav {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: #e8f0fe;
-    color: #0d6efd;
+    background: #fff8e6;
+    color: #FFB61B;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -405,7 +407,7 @@ nav {
     width: 400px;
     height: 400px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(13,110,253,0.18) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255,182,27,0.18) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -419,9 +421,9 @@ nav {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    background: rgba(13,110,253,0.15);
-    color: #7eb8ff;
-    border: 1px solid rgba(13,110,253,0.3);
+    background: rgba(255,182,27,0.15);
+    color: #FFB61B;
+    border: 1px solid rgba(255,182,27,0.4);
     font-size: 0.78rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -613,6 +615,7 @@ nav {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
+    justify-items: center;
 }
 
 .info-item {
@@ -623,7 +626,7 @@ nav {
 
 .info-item > i {
     font-size: 1.5rem;
-    color: #0d6efd;
+    color: #FFB61B;
     margin-top: 0.25rem;
     flex-shrink: 0;
 }
@@ -642,7 +645,7 @@ nav {
 }
 
 .info-item a {
-    color: #0d6efd;
+    color: #FFB61B;
     font-weight: 500;
 }
 
@@ -696,7 +699,7 @@ footer {
 }
 
 .footer-social a:hover {
-    background: #0d6efd;
+    background: #FFB61B;
 }
 
 .footer-nav h4,
@@ -721,7 +724,7 @@ footer {
 }
 
 .footer-nav a:hover {
-    color: #4fc3f7;
+    color: #FFB61B;
 }
 
 .footer-contact p {
@@ -731,7 +734,7 @@ footer {
 }
 
 .footer-contact a {
-    color: #4fc3f7;
+    color: #FFB61B;
 }
 
 .footer-contact a:hover {
@@ -774,7 +777,7 @@ footer {
 }
 
 .partner-strip-label i {
-    color: #0d6efd;
+    color: #FFB61B;
     font-size: 0.95rem;
 }
 
@@ -894,13 +897,13 @@ footer {
 }
 
 .store-status.status-open {
-    background: rgba(34, 197, 94, 0.15);
-    color: #16a34a;
+    background: rgba(13, 110, 253, 0.12);
+    color: #0d6efd;
 }
 
 .store-status.status-open::before {
-    background: #22c55e;
-    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.3);
+    background: #0d6efd;
+    box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.25);
 }
 
 .store-status.status-closed {
@@ -1097,7 +1100,7 @@ footer {
 }
 
 .contact-card a:hover {
-    color: #0d6efd;
+    color: #FFB61B;
 }
 
 .contact-card .contact-open-badge {
@@ -1159,8 +1162,8 @@ footer {
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    border-color: #0d6efd;
-    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+    border-color: #FFB61B;
+    box-shadow: 0 0 0 3px rgba(255, 182, 27, 0.18);
     background: #fff;
 }
 
@@ -1181,8 +1184,8 @@ footer {
     justify-content: center;
     gap: 0.6rem;
     padding: 0.85rem 2rem;
-    background: #0d6efd;
-    color: #fff;
+    background: #FFB61B;
+    color: #1a1a2e;
     font-family: "Inter", sans-serif;
     font-size: 1rem;
     font-weight: 700;
@@ -1195,7 +1198,7 @@ footer {
 }
 
 .btn-form:hover {
-    background: #0b5ed7;
+    background: #e6a314;
     transform: translateY(-1px);
 }
 
