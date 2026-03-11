@@ -86,6 +86,11 @@ img {
 .top-bar a {
     color: #FFB61B;
     font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 6px;
+    margin: 0 -6px;
 }
 
 .top-bar a:hover {
@@ -719,6 +724,11 @@ nav {
 .info-item a {
     color: #8a6000;
     font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 6px;
+    margin: 0 -6px;
 }
 
 .info-item a:hover {
@@ -807,10 +817,11 @@ footer {
 
 .footer-contact a {
     color: #FFB61B;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     min-height: 44px;
-    line-height: 44px;
-    padding: 0 2px;
+    padding: 0 10px;
+    margin-left: -10px;
 }
 
 .footer-contact a:hover {
