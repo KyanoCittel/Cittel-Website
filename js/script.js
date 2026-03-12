@@ -140,3 +140,147 @@ var revealObserver = new IntersectionObserver(function (entries) {
 document.querySelectorAll('.reveal').forEach(function (el) {
     revealObserver.observe(el);
 });
+
+// Reviews carousel
+(function () {
+    var trackOuter = document.querySelector('.reviews-track-outer');
+    var track = document.querySelector('.reviews-track');
+    if (!track || !trackOuter) return;
+
+    var cards = Array.prototype.slice.call(track.querySelectorAll('.review-card'));
+    var totalCards = cards.length;
+    var currentIndex = 0;
+    var prevBtn = document.querySelector('.carousel-btn--prev');
+    var nextBtn = document.querySelector('.carousel-btn--next');
+    var dotsContainer = document.getElementById('reviewsDots');
+    var swipeHint = document.getElementById('swipeHint');
+
+    // Build dots
+    var dots = [];
+    if (dotsContainer) {
+        for (var i = 0; i < totalCards; i++) {
+            var dot = document.createElement('button');
+            dot.className = 'reviews-dot';
+            dot.setAttribute('aria-label', 'Review ' + (i + 1));
+            (function (idx) {
+                dot.addEventListener('click', function () {
+                    currentIndex = idx;
+                    updateCarousel();
+                });
+            })(i);
+            dotsContainer.appendChild(dot);
+            dots.push(dot);
+        }
+    }
+
+    function getPerPage() {
+        return window.innerWidth <= 900 ? 1 : 3;
+    }
+
+    function getSlideWidth() {
+        if (!cards.length) return 0;
+        var gap = parseFloat(window.getComputedStyle(track).columnGap) || 24;
+        return cards[0].offsetWidth + gap;
+    }
+
+    function updateDots() {
+        dots.forEach(function (dot, i) {
+            dot.classList.toggle('active', i === currentIndex);
+        });
+    }
+
+    function updateCarousel() {
+        var perPage = getPerPage();
+        var maxIndex = Math.max(0, totalCards - perPage);
+        currentIndex = Math.min(currentIndex, maxIndex);
+        track.style.transform = 'translateX(-' + (currentIndex * getSlideWidth()) + 'px)';
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex >= maxIndex;
+        updateDots();
+    }
+
+    prevBtn.addEventListener('click', function () {
+        currentIndex = Math.max(0, currentIndex - getPerPage());
+        updateCarousel();
+    });
+
+    nextBtn.addEventListener('click', function () {
+        var perPage = getPerPage();
+        var maxIndex = Math.max(0, totalCards - perPage);
+        currentIndex = Math.min(maxIndex, currentIndex + perPage);
+        updateCarousel();
+    });
+
+    // Touch / swipe support
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var isDragging = false;
+
+    trackOuter.addEventListener('touchstart', function (e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        isDragging = true;
+        track.style.transition = 'none';
+    }, { passive: true });
+
+    trackOuter.addEventListener('touchmove', function (e) {
+        if (!isDragging) return;
+        var dx = e.touches[0].clientX - touchStartX;
+        var dy = e.touches[0].clientY - touchStartY;
+        if (Math.abs(dx) > Math.abs(dy) + 5) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    trackOuter.addEventListener('touchend', function (e) {
+        if (!isDragging) return;
+        isDragging = false;
+        track.style.transition = '';
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        var threshold = 50;
+        if (dx < -threshold) {
+            var perPage = getPerPage();
+            var maxIndex = Math.max(0, totalCards - perPage);
+            currentIndex = Math.min(maxIndex, currentIndex + 1);
+        } else if (dx > threshold) {
+            currentIndex = Math.max(0, currentIndex - 1);
+        }
+        // Hide swipe hint after first interaction
+        if (swipeHint) {
+            swipeHint.style.opacity = '0';
+            setTimeout(function () { swipeHint.style.display = 'none'; }, 400);
+        }
+        updateCarousel();
+    }, { passive: true });
+
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+            currentIndex = 0;
+            updateCarousel();
+        }, 150);
+    });
+
+    updateCarousel();
+})();
+
+// Services accordion (index page)
+(function () {
+    var items = document.querySelectorAll('.acc-item');
+    if (!items.length) return;
+    items.forEach(function (item) {
+        var trigger = item.querySelector('.acc-trigger');
+        trigger.addEventListener('click', function () {
+            var isOpen = item.classList.contains('is-open');
+            items.forEach(function (i) {
+                i.classList.remove('is-open');
+                i.querySelector('.acc-trigger').setAttribute('aria-expanded', 'false');
+            });
+            if (!isOpen) {
+                item.classList.add('is-open');
+                trigger.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+})();
