@@ -24,7 +24,8 @@
     <meta name="twitter:description" content="Neem contact op met Cittel Computercentrum in Maldegem. Bel 050 71 94 29 of stuur een bericht.">
     <meta name="twitter:image" content="https://cittel.be/img/winkel-front4.png">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/contact.css">
     <link rel="preload" as="font" type="font/woff2" href="font/Inter/Inter-Variable.woff2" crossorigin>
     <link rel="preload" href="fontawesome/css/fontawesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" href="fontawesome/css/solid.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -64,7 +65,7 @@
                 <li class="nav-hours-item">
                     <div class="nav-hours">
                         <div>
-                            <strong style="text-align: center;">Openingsuren</strong>
+                            <strong class="nav-hours-title">Openingsuren</strong>
                             <span>Ma–Vr: 9:00–12:00u &amp; 13:00–18:00u</span>
                             <span>Za: 10:00–13:00u &nbsp;&nbsp;|&nbsp;&nbsp; Zo: Gesloten</span>
                             <span id="store-status-nav" class="store-status store-status--nav"></span>
@@ -96,7 +97,7 @@
                 <div class="contact-info">
                     <div class="contact-card reveal contact-card--hours">
                         <div class="contact-card-icon"><i class="fa-solid fa-clock"></i></div>
-                        <div style="flex:1">
+                        <div class="contact-card-body">
                             <h4>Openingsuren</h4>
                             <p>Ma–Vr: 9:00–12:00 &amp; 13:00–18:00<br>Za: 10:00–13:00 &nbsp;|&nbsp; Zo: Gesloten</p>
                             <span id="store-status-info" class="store-status store-status--contact"></span>
@@ -124,8 +125,8 @@
                         <div>
                             <h4>Adres</h4>
                             <p>Koning Leopoldlaan 20D<br>9990 Maldegem</p>
-                            <a href="https://maps.google.com/?q=Koning+Leopoldlaan+20D,+9990+Maldegem" target="_blank" rel="noopener noreferrer" style="font-size:0.9rem; color:#0d6efd; font-weight:600; margin-top:0.4rem; display:inline-flex; align-items:center; gap:0.3rem;">
-                                <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem;"></i> Open in Google Maps
+                            <a href="https://maps.google.com/?q=Koning+Leopoldlaan+20D,+9990+Maldegem" target="_blank" rel="noopener noreferrer" class="contact-map-link">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open in Google Maps
                             </a>
                         </div>
                     </div>
@@ -143,7 +144,7 @@
                 <div class="contact-form-wrap reveal" data-delay="100">
                     <h3>Stuur ons een bericht</h3>
                     <p>Wij antwoorden zo snel mogelijk, normaal gezien binnen de werkdag.</p>
-                    <div id="form-feedback" style="display:none; padding:0.85rem 1rem; border-radius:10px; font-weight:600; font-size:0.95rem; margin-bottom:1rem;"></div>
+                    <div id="form-feedback" class="form-feedback"></div>
                     <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
                         <input type="hidden" name="access_key" value="f059d7b5-7e4e-4aa5-a916-3b80ef63d4a3">
                         <input type="hidden" name="subject" value="Nieuw contactbericht — Cittel Computercentrum">
@@ -164,7 +165,7 @@
                             <input type="email" id="email" name="email" placeholder="jan@voorbeeld.be" required>
                         </div>
                         <div class="form-group">
-                            <label for="telefoon">Telefoonnummer <span style="font-weight:400; color:#8888aa;">(optioneel)</span></label>
+                            <label for="telefoon">Telefoonnummer <span class="form-label-optional">(optioneel)</span></label>
                             <input type="tel" id="telefoon" name="telefoon" placeholder="0470 00 00 00">
                         </div>
                         <div class="form-group">
@@ -223,7 +224,7 @@
         </div>
         <div class="footer-bottom">
             <div class="container">
-                <p>&copy; <span id="footer-year"></span> Coppens Computercenter BV — BE 0475.096.892 &nbsp;|&nbsp; <a href="privacy.html" style="color:inherit;">Privacybeleid</a></p>
+                <p>&copy; <span id="footer-year"></span> Coppens Computercenter BV — BE 0475.096.892 &nbsp;|&nbsp; <a href="privacy.html">Privacybeleid</a></p>
             </div>
         </div>
     </footer>
@@ -239,6 +240,7 @@
             const formData = new FormData(form);
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Bezig met verzenden...';
+            feedback.className = 'form-feedback';
             feedback.style.display = 'none';
 
             try {
@@ -250,9 +252,7 @@
 
                 if (response.ok) {
                     feedback.textContent = '✓ Bericht verzonden! Wij nemen zo snel mogelijk contact met u op.';
-                    feedback.style.background = 'rgba(34,197,94,0.1)';
-                    feedback.style.color = '#16a34a';
-                    feedback.style.border = '1.5px solid rgba(34,197,94,0.3)';
+                    feedback.className = 'form-feedback form-feedback--success';
                     feedback.style.display = 'block';
                     form.reset();
                 } else {
@@ -260,9 +260,7 @@
                 }
             } catch (err) {
                 feedback.textContent = '✗ Er is iets misgegaan. Probeer het opnieuw of bel ons op 050 71 94 29.';
-                feedback.style.background = 'rgba(239,68,68,0.08)';
-                feedback.style.color = '#dc2626';
-                feedback.style.border = '1.5px solid rgba(239,68,68,0.25)';
+                feedback.className = 'form-feedback form-feedback--error';
                 feedback.style.display = 'block';
             } finally {
                 submitBtn.disabled = false;
