@@ -198,7 +198,7 @@
 
 .review-meta span {
     font-size: 0.8rem;
-    color: #999ab0;
+    color: #666680;
 }
 
 .review-stars {
@@ -248,12 +248,13 @@
 }
 
 .reviews-dot {
+    display: inline-block;
     width: 8px;
     height: 8px;
     border-radius: 50%;
     background: #d0d0e0;
     transition: background 0.25s, transform 0.25s;
-    cursor: pointer;
+    flex-shrink: 0;
 }
 
 .reviews-dot.active {
@@ -267,7 +268,7 @@
     justify-content: center;
     gap: 0.4rem;
     font-size: 0.78rem;
-    color: #999ab0;
+    color: #666680;
     margin-top: 0.7rem;
     transition: opacity 0.4s;
 }

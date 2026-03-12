@@ -159,15 +159,9 @@ document.querySelectorAll('.reveal').forEach(function (el) {
     var dots = [];
     if (dotsContainer) {
         for (var i = 0; i < totalCards; i++) {
-            var dot = document.createElement('button');
+            var dot = document.createElement('span');
             dot.className = 'reviews-dot';
-            dot.setAttribute('aria-label', 'Review ' + (i + 1));
-            (function (idx) {
-                dot.addEventListener('click', function () {
-                    currentIndex = idx;
-                    updateCarousel();
-                });
-            })(i);
+            dot.setAttribute('aria-hidden', 'true');
             dotsContainer.appendChild(dot);
             dots.push(dot);
         }
