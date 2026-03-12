@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Over Ons — Cittel Computercentrum Maldegem</title>
+    <meta name="description" content="Leer Cittel Computercentrum kennen. Al jaren dé IT-partner in Maldegem voor particulieren en bedrijven — verkoop, herstellingen, Telenet en meer.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://cittel.be/over-ons.html">
+    <link rel="sitemap" type="application/xml" href="sitemap.xml">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cittel.be/over-ons.html">
+    <meta property="og:title" content="Over Ons — Cittel Computercentrum Maldegem">
+    <meta property="og:description" content="Al jaren dé lokale IT-partner in Maldegem voor particulieren en bedrijven — verkoop, herstellingen, Telenet en meer.">
+    <meta property="og:image" content="https://cittel.be/img/winkel-front4.png">
+    <meta property="og:locale" content="nl_BE">
+    <meta property="og:site_name" content="Cittel Computercentrum">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Over Ons — Cittel Computercentrum Maldegem">
+    <meta name="twitter:description" content="Al jaren dé lokale IT-partner in Maldegem voor particulieren en bedrijven.">
+    <meta name="twitter:image" content="https://cittel.be/img/winkel-front4.png">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preload" as="font" type="font/woff2" href="font/Inter/Inter-Variable.woff2" crossorigin>
+    <link rel="preload" href="fontawesome/css/fontawesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="fontawesome/css/solid.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="fontawesome/css/brands.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="fontawesome/css/solid.min.css">
+        <link rel="stylesheet" href="fontawesome/css/brands.min.css">
+    </noscript>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+
+    <style>
+        /* ---- Over Ons — About section ---- */
+        .about-section {
+            padding: 5rem 0;
+        }
+        .about-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .about-text .section-label {
+            margin-bottom: 0.75rem;
+            color: #FFB61B;
+        }
+        .about-text h2 {
+            font-size: clamp(1.65rem, 3vw, 2.4rem);
+            font-weight: 800;
+            line-height: 1.2;
+            color: #1a1a2e;
+            margin-bottom: 1.2rem;
+        }
+        .about-text p {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #555570;
+            margin-bottom: 1rem;
+        }
+        .about-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1.6rem;
+        }
+        .about-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: #fff8e6;
+            color: #7a5000;
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            border: 1.5px solid rgba(255,182,27,0.35);
+        }
+        .about-pill i {
+            font-size: 0.8rem;
+        }
+        .about-image {
+            position: relative;
+        }
+        .about-image img {
+            width: 100%;
+            border-radius: 18px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+            object-fit: cover;
+        }
+        .about-badge {
+            position: absolute;
+            bottom: -1.2rem;
+            left: -1.2rem;
+            background: #FFB61B;
+            color: #1a1a2e;
+            border-radius: 14px;
+            padding: 1rem 1.4rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            line-height: 1.3;
+            box-shadow: 0 8px 24px rgba(255,182,27,0.35);
+        }
+        .about-badge span {
+            display: block;
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        /* ---- Stats bar ---- */
+        .stats-bar {
+            background: #f6f7fb;
+            border-top: 1px solid #e8e8f0;
+            border-bottom: 1px solid #e8e8f0;
+            padding: 2.4rem 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            text-align: center;
+        }
+        .stat-item strong {
+            display: block;
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            font-weight: 800;
+            color: #FFB61B;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+        .stat-item p {
+            font-size: 0.9rem;
+            color: #666680;
+            font-weight: 500;
+        }
+
+        /* ---- Reviews carousel ---- */
+        .reviews-section {
+            padding: 5rem 0;
+        }
+        .reviews-carousel-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+        .reviews-track-outer {
+            overflow: hidden;
+            flex: 1;
+            min-width: 0;
+        }
+        .reviews-track {
+            display: flex;
+            gap: 1.5rem;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reviews-track .review-card {
+            flex: 0 0 calc((100% - 3rem) / 3);
+            min-width: 0;
+        }
+        .carousel-btn {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,182,27,0.4);
+            background: #fff;
+            color: #7a5000;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        .carousel-btn:hover:not(:disabled) {
+            background: #FFB61B;
+            color: #1a1a2e;
+            border-color: #FFB61B;
+        }
+        .carousel-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .review-card {
+            background: #fff;
+            border: 1.5px solid #e8e8f0;
+            border-radius: 16px;
+            padding: 1.6rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .review-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(0,0,0,0.09);
+        }
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+        .review-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .review-meta strong {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+        .review-meta span {
+            font-size: 0.8rem;
+            color: #999ab0;
+        }
+        .review-stars {
+            color: #fbbc04;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+        .review-text {
+            font-size: 0.93rem;
+            line-height: 1.7;
+            color: #444460;
+            flex: 1;
+        }
+        .reviews-cta {
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+        .reviews-cta a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: #FFB61B;
+            color: #1a1a2e;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.85rem 2rem;
+            border-radius: 999px;
+            box-shadow: 0 4px 18px rgba(255,182,27,0.4);
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+        .reviews-cta a:hover {
+            background: #e6a000;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(255,182,27,0.5);
+        }
+
+        /* ---- Reviews dots + swipe hint (mobile only) ---- */
+        .reviews-dots {
+            display: none;
+            justify-content: center;
+            gap: 0.45rem;
+            margin-top: 1.2rem;
+        }
+        .reviews-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #d0d0e0;
+            transition: background 0.25s, transform 0.25s;
+            cursor: pointer;
+        }
+        .reviews-dot.active {
+            background: #FFB61B;
+            transform: scale(1.35);
+        }
+        .swipe-hint {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            font-size: 0.78rem;
+            color: #999ab0;
+            margin-top: 0.7rem;
+            transition: opacity 0.4s;
+        }
+        .swipe-hint i {
+            font-size: 0.85rem;
+        }
+        @media (max-width: 900px) {
+            .reviews-dots { display: flex; }
+            .swipe-hint { display: flex; }
+        }
+
+        /* ---- Services section on this page ---- */
+        .diensten-page {
+            padding: 5rem 0;
+            background: #f6f7fb;
+            border-top: 1px solid #e8e8f0;
+        }
+
+        /* ---- Responsive ---- */
+        @media (max-width: 900px) {
+            .about-layout {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            .about-image {
+                order: -1;
+            }
+            .about-badge {
+                bottom: -1rem;
+                left: 1rem;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            .carousel-btn {
+                display: none;
+            }
+            .reviews-track .review-card {
+                flex: 0 0 100%;
+            }
+            .review-card {
+                padding: 1.2rem;
+                gap: 0.6rem;
+            }
+            .review-text {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+        }
+        @media (max-width: 600px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top bar -->
+    <div class="top-bar">
+        <div class="container top-bar-inner">
+            <span><i class="fa-solid fa-clock"></i> Ma–Vr: 9–12u &amp; 13–18u &nbsp;|&nbsp; Za: 10–13u &nbsp;|&nbsp; Zo: Gesloten &nbsp;<span id="store-status-bar" class="store-status"></span></span>
+            <span><i class="fa-solid fa-phone phone-icon"></i> <a href="tel:+3250719429">050 71 94 29</a></span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-inner">
+            <a href="index.html" class="nav-logo">
+                <img src="img/blue-clean-cittel-small.webp" alt="Cittel Computercentrum Maldegem logo" width="1600" height="466">
+            </a>
+            <button class="mobile-toggle" aria-label="Menu openen">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="over-ons.html" class="active">Over ons</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="https://webshop.cittel.be" target="_blank" rel="noopener noreferrer">Webshop</a></li>
+                <li><a href="download/WIN/Cittel Remote.exe" class="btn-nav-tv"><i class="fa-brands fa-windows"></i> TeamViewer</a></li>
+                <li class="nav-hours-item">
+                    <div class="nav-hours">
+                        <div>
+                            <strong style="text-align: center;">Openingsuren</strong>
+                            <span>Ma–Vr: 9:00–12:00u &amp; 13:00–18:00u</span>
+                            <span>Za: 10:00–13:00u &nbsp;&nbsp;|&nbsp;&nbsp; Zo: Gesloten</span>
+                            <span id="store-status-nav" class="store-status store-status--nav"></span>
+                        </div>
+                    </div>
+                    <a href="tel:+3250719429" class="nav-hours-call"><i class="fa-solid fa-phone"></i> 050 71 94 29</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container page-hero-content">
+            <p class="page-hero-label">Over ons</p>
+            <h1>Uw vertrouwde IT-partner<br>in Maldegem</h1>
+            <p>Persoonlijk advies, vakkundige herstellingen en eerlijke prijzen — al meer dan 25 jaar voor particulieren en bedrijven.</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-layout">
+
+                <div class="about-text reveal">
+                    <p class="section-label">Wie zijn wij?</p>
+                    <h2>Meer dan een computerwinkel</h2>
+                    <p>Cittel Computercentrum — officieel Coppens Computercenter BV — is al meer dan 25 jaar het adres in Maldegem voor alles wat met IT te maken heeft. Wat begon als een kleine computerwinkel groeide uit tot een volwaardig IT-servicecentrum.</p>
+                    <p>Wij helpen iedereen: van de particulier die zijn laptop wil laten herstellen, tot de zelfstandige die een betrouwbare netwerkoplossing nodig heeft, en de KMO die op zoek is naar een degelijke telefonie- of cloudoplossing. Geen vraag is te klein, geen probleem te groot.</p>
+                    <p>Persoonlijk contact staat bij ons centraal. U spreekt altijd met een vaste medewerker die uw situatie kent — geen callcenter, geen wachtrijen.</p>
+                </div>
+
+                <div class="about-image reveal" data-delay="150">
+                    <img src="img/shop-front-small.webp" alt="Cittel Computercentrum winkel Maldegem" width="800" height="600">
+                    <div class="about-badge">
+                        <span>25+</span>jaar<br>ervaring
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section">
+        <div class="container">
+            <p class="section-label reveal">Wat onze klanten zeggen</p>
+            <h2 class="section-title reveal" data-delay="100">Beoordelingen van Google</h2>
+            <p class="section-subtitle reveal" data-delay="200">Onze klanten beoordelen ons met de hoogste scores op Google Business.</p>
+
+            <div class="reviews-carousel-wrapper">
+                <button class="carousel-btn carousel-btn--prev" aria-label="Vorige reviews">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <div class="reviews-track-outer">
+                    <div class="reviews-track">
+
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar" style="background:#4285f4;">SM</div>
+                                <div class="review-meta">
+                                    <strong>Sam M.</strong>
+                                    <span>3 weken geleden</span>
+                                </div>
+                            </div>
+                            <div class="review-stars">★★★★★</div>
+                            <p class="review-text">Super goede service, ze helpen denken en zoeken naar oplossingen. Er werkte een programma van Siemens Tia portal niet op mijn pc, andere software blokkeerde deze installatie. Nu werkt dit in een virtuele machine. Heel erg bedankt voor jullie hulp en de goede snelle service.</p>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar" style="background:#ff4b56;">GW</div>
+                                <div class="review-meta">
+                                    <strong>Geert W.</strong>
+                                    <span>een jaar geleden</span>
+                                </div>
+                            </div>
+                            <div class="review-stars">★★★★★</div>
+                            <p class="review-text">Deze Telenet winkel legt hier duidelijk de nadruk op de optimale bediening van de klant. De bedoeling is om buiten te stappen als een héél tevreden klant. Wat natuurlijk met zich meebrengt dat als je in de rij staat, wat langer moet wachten. Maar eenmaal je aan de beurt verdwijnt die irritatie als sneeuw voor de zon.</p>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar" style="background:#34a853;">AL</div>
+                                <div class="review-meta">
+                                    <strong>Alain L.</strong>
+                                    <span>6 maanden geleden</span>
+                                </div>
+                            </div>
+                            <div class="review-stars">★★★★★</div>
+                            <p class="review-text">Super bediening , niets is te veel en de heer Adriatik heeft alles met veel zorg en met veel geduld met pc problemen terug opgelost .hier is service TROEF</p>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar" style="background:#f9a825;">HL</div>
+                                <div class="review-meta">
+                                    <strong>Hilde L.</strong>
+                                    <span>3 maanden geleden</span>
+                                </div>
+                            </div>
+                            <div class="review-stars">★★★★★</div>
+                            <p class="review-text">Heel tevreden over de persoonlijke en klantvriendelijke benadering. Ook dank aan Tibo voor zijn begrijpelijke en adequate ondersteuning en uitleg.</p>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar" style="background:#00897b;">JR</div>
+                                <div class="review-meta">
+                                    <strong>Johan R.</strong>
+                                    <span>5 maanden geleden</span>
+                                </div>
+                            </div>
+                            <div class="review-stars">★★★★★</div>
+                            <p class="review-text">Zoals steeds is het vriendelijk personeel weeral bereid om voor serieuze problemen een oplossing te willen zoeken. Een redpunt ook voor mensen met it-problemen. Hardware daar kopen zou ik zeggen, dienst na veekoop verzekerd !</p>
+                        </div>
+
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-avatar" style="background:#9c27b0;">JA</div>
+                                <div class="review-meta">
+                                    <strong>Joyce a.</strong>
+                                    <span>4 maanden geleden</span>
+                                </div>
+                            </div>
+                            <div class="review-stars">★★★★★</div>
+                            <p class="review-text">Snel, vlot en vriendelijk geholpen. Top wij komen zeker terug zowel voor telenet hulp als voor aankoop van nieuwe laptop.</p>
+                        </div>
+
+                    </div>
+                </div>
+                <button class="carousel-btn carousel-btn--next" aria-label="Volgende reviews">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <!-- Mobile: dots + swipe hint -->
+            <div class="reviews-dots" id="reviewsDots"></div>
+            <p class="swipe-hint" id="swipeHint"><i class="fa-solid fa-hand-pointer"></i> Swipe om meer te zien</p>
+
+            <div class="reviews-cta">
+                <a href="https://search.google.com/local/writereview?placeid=ChIJQ1tkAldnw0cRB18bskddtjk"
+                   target="_blank" rel="noopener noreferrer">
+                    <i class="fa-solid fa-star"></i> Schrijf een review
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="diensten diensten-page" id="diensten">
+        <div class="container">
+            <p class="section-label reveal">Wat wij aanbieden</p>
+            <h2 class="section-title reveal" data-delay="100">Onze diensten</h2>
+            <p class="section-subtitle reveal" data-delay="200">Van verkoop en reparaties tot cloud-oplossingen — wij staan klaar voor al uw IT-vragen.</p>
+            <div class="diensten-grid">
+                <div class="dienst-card reveal" data-delay="0">
+                    <div class="dienst-icon dienst-icon--img">
+                        <img src="img/telenet-small-logo.svg" alt="Telenet" width="100" height="100">
+                    </div>
+                    <h3>Telenet Center</h3>
+                    <p>Officieel Telenet Center voor internet, tv en telefonie. Advies, installatie en configuratie door erkende technici.</p>
+                </div>
+                <div class="dienst-card reveal" data-delay="80">
+                    <div class="dienst-icon"><i class="fa-solid fa-computer"></i></div>
+                    <h3>Verkoop</h3>
+                    <p>Computers, laptops, printers &amp; inkt, tv's, speakers en accessoires — nieuw en op maat geadviseerd. Wij helpen u de juiste keuze maken voor uw budget.</p>
+                </div>
+                <div class="dienst-card reveal" data-delay="160">
+                    <div class="dienst-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <h3>Herstellingen</h3>
+                    <p>PC, laptop, etc reparaties. Virusverwijdering, data recovery en hardware upgrades door ervaren technici.</p>
+                </div>
+                <div class="dienst-card reveal" data-delay="240">
+                    <div class="dienst-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>WithSecure</h3>
+                    <p>Bescherm uw bedrijf en gegevens met betrouwbare beveiligingsoplossingen. Antivirus, firewall en meer.</p>
+                </div>
+                <div class="dienst-card reveal" data-delay="0">
+                    <div class="dienst-icon"><i class="fa-brands fa-microsoft"></i></div>
+                    <h3>Office 365</h3>
+                    <p>Microsoft 365 licenties, installatie en beheer. E-mail, Teams, OneDrive en alle Office-apps in de cloud.</p>
+                </div>
+                <div class="dienst-card reveal" data-delay="80">
+                    <div class="dienst-icon"><i class="fa-solid fa-server"></i></div>
+                    <h3>Combell Hosting</h3>
+                    <p>Betrouwbare webhosting en domeinnamen via Combell. Wij regelen alles voor u.</p>
+                </div>
+                <div class="dienst-card reveal" data-delay="160">
+                    <div class="dienst-icon"><i class="fa-solid fa-phone-volume"></i></div>
+                    <h3>3CX VoIP</h3>
+                    <p>Professionele telefonie via 3CX. Bel via internet, bespaar kosten en werk flexibel vanuit elke locatie.</p>
+                </div>
+                <div class="dienst-card reveal" data-delay="240">
+                    <div class="dienst-icon"><i class="fa-solid fa-wifi"></i></div>
+                    <h3>UniFi WiFi</h3>
+                    <p>Stabiel en snel WiFi-netwerk met Ubiquiti UniFi. Ideaal voor thuis, kantoor of horecazaken.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <img src="img/logo-high-res-small.webp" alt="Cittel logo" width="600" height="174">
+                <p>Coppens Computercenter BV — uw lokale IT-partner in Maldegem. Persoonlijk, snel en betrouwbaar.</p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/cittelmaldegem/" target="_blank" rel="noopener noreferrer" aria-label="Cittel op Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-nav">
+                <h3>Navigatie</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="over-ons.html">Over ons</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="https://webshop.cittel.be" target="_blank" rel="noopener noreferrer">Webshop</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact</h3>
+                <p>Koning Leopoldlaan 20D<br>9990 Maldegem</p>
+                <p><a href="tel:+3250719429">050 71 94 29</a></p>
+                <p><a href="mailto:info@cittel.be">info@cittel.be</a></p>
+                <p>Ma–Vr: 9–12u &amp; 13–18u<br>Za: 10–13u &nbsp;|&nbsp; Zo: Gesloten</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; <span id="footer-year"></span> Coppens Computercenter BV — BE 0475.096.892 &nbsp;|&nbsp; <a href="privacy.html" style="color:inherit;">Privacybeleid</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
