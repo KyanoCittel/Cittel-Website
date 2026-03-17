@@ -259,22 +259,65 @@ document.querySelectorAll('.reveal').forEach(function (el) {
     updateCarousel();
 })();
 
-// Services accordion (index page)
 (function () {
-    var items = document.querySelectorAll('.acc-item');
+    var accordionList = document.querySelector('.accordion-list');
+    if (!accordionList) return;
+
+    var items = accordionList.querySelectorAll('.acc-item');
     if (!items.length) return;
+
+    function closeItem(item) {
+        var btn = item.querySelector('.acc-trigger');
+        var panel = item.querySelector('.acc-body');
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        panel.style.maxHeight = null;
+    }
+
+    function openItem(item) {
+        var btn = item.querySelector('.acc-trigger');
+        var panel = item.querySelector('.acc-body');
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+    }
+
+    // Initialize max-heights from markup state
+    items.forEach(function (item) {
+        var panel = item.querySelector('.acc-body');
+        if (item.classList.contains('is-open')) {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+        } else {
+            panel.style.maxHeight = null;
+        }
+    });
+
     items.forEach(function (item) {
         var trigger = item.querySelector('.acc-trigger');
+
         trigger.addEventListener('click', function () {
             var isOpen = item.classList.contains('is-open');
-            items.forEach(function (i) {
-                i.classList.remove('is-open');
-                i.querySelector('.acc-trigger').setAttribute('aria-expanded', 'false');
-            });
-            if (!isOpen) {
-                item.classList.add('is-open');
-                trigger.setAttribute('aria-expanded', 'true');
+            var currentOpen = accordionList.querySelector('.acc-item.is-open');
+
+            if (isOpen) {
+                closeItem(item);
+                return;
             }
+
+            if (currentOpen && currentOpen !== item) {
+                closeItem(currentOpen);
+                // Apply closed layout first so old and new items never overlap open state
+                accordionList.offsetHeight;
+            }
+
+            openItem(item);
         });
+    });
+
+    window.addEventListener('resize', function () {
+        var openItemEl = accordionList.querySelector('.acc-item.is-open');
+        if (!openItemEl) return;
+        var panel = openItemEl.querySelector('.acc-body');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
     });
 })();

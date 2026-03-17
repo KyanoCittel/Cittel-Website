@@ -201,7 +201,7 @@
 .acc-body {
     overflow: hidden;
     max-height: 0;
-    transition: max-height 0.38s ease;
+    transition: max-height 0.3s ease;
     padding: 0 1.3rem;
 }
 
@@ -215,7 +215,7 @@
 }
 
 .acc-item.is-open .acc-body {
-    max-height: 500px;
+    max-height: 999px;
 }
 
 .accordion-photo {
