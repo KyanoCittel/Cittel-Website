@@ -265,6 +265,22 @@ document.querySelectorAll('.reveal').forEach(function (el) {
 
     var items = accordionList.querySelectorAll('.acc-item');
     if (!items.length) return;
+    var photoImage = document.getElementById('accordionPhotoImage');
+
+    function updatePhoto(item) {
+        if (!photoImage) return;
+
+        var nextSrc = item.getAttribute('data-photo');
+        var nextAlt = item.getAttribute('data-photo-alt') || '';
+        if (!nextSrc || photoImage.getAttribute('src') === nextSrc) return;
+
+        photoImage.classList.add('is-changing');
+        setTimeout(function () {
+            photoImage.setAttribute('src', nextSrc);
+            photoImage.setAttribute('alt', nextAlt);
+            photoImage.classList.remove('is-changing');
+        }, 120);
+    }
 
     function closeItem(item) {
         var btn = item.querySelector('.acc-trigger');
@@ -280,6 +296,7 @@ document.querySelectorAll('.reveal').forEach(function (el) {
         item.classList.add('is-open');
         btn.setAttribute('aria-expanded', 'true');
         panel.style.maxHeight = panel.scrollHeight + 'px';
+        updatePhoto(item);
     }
 
     // Initialize max-heights from markup state
@@ -287,6 +304,7 @@ document.querySelectorAll('.reveal').forEach(function (el) {
         var panel = item.querySelector('.acc-body');
         if (item.classList.contains('is-open')) {
             panel.style.maxHeight = panel.scrollHeight + 'px';
+            updatePhoto(item);
         } else {
             panel.style.maxHeight = null;
         }
