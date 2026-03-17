@@ -1,0 +1,58 @@
+/* =============================================
+   Diensten Page
+   ============================================= */
+
+.diensten-overview {
+    padding: 5rem 0;
+    background: #f7f8fc;
+}
+
+.diensten-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.diensten-detail-grid .dienst-card {
+    height: 100%;
+}
+
+.diensten-detail-grid .dienst-card p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+}
+
+.diensten-cta {
+    padding: 4.5rem 0 5rem;
+    background: #ffffff;
+}
+
+.diensten-cta-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+    background: #fff8e6;
+    border: 1.5px solid #ffe9a0;
+    border-radius: 20px;
+    padding: 2.3rem 1.6rem;
+    box-shadow: 0 10px 30px rgba(255, 182, 27, 0.16);
+}
+
+.diensten-cta-inner h2 {
+    font-size: clamp(1.45rem, 3vw, 2rem);
+    color: #1a1a2e;
+    margin-bottom: 0.8rem;
+}
+
+.diensten-cta-inner p {
+    color: #555570;
+    font-size: 1.02rem;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+}
+
+@media (max-width: 900px) {
+    .diensten-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -277,11 +277,36 @@
     font-size: 0.85rem;
 }
 
-/* Services section on over-ons page */
-.diensten-page {
-    padding: 5rem 0;
+/* Services redirect block on over-ons page */
+.diensten-link-section {
+    padding: 4.5rem 0 5.5rem;
     background: #f6f7fb;
     border-top: 1px solid #e8e8f0;
+}
+
+.diensten-link-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+    background: #ffffff;
+    border: 1.5px solid #eeeff5;
+    border-radius: 20px;
+    padding: 2.2rem 1.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.diensten-link-wrap h2 {
+    font-size: clamp(1.45rem, 3vw, 2rem);
+    font-weight: 800;
+    color: #1a1a2e;
+    margin-bottom: 0.8rem;
+}
+
+.diensten-link-wrap p {
+    color: #5a5a7a;
+    line-height: 1.75;
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
 }
 
 /* =============================================
