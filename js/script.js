@@ -1,74 +1,145 @@
-// Store open/closed status
+// ============================================================
+// Store status & Google Maps Logic (INCL. UITZONDERINGEN)
+// ============================================================
 (function () {
-    var schedule = {
-        1: [{ o: 9*60, c: 12*60 }, { o: 13*60, c: 18*60 }],
-        2: [{ o: 9*60, c: 12*60 }, { o: 13*60, c: 18*60 }],
-        3: [{ o: 9*60, c: 12*60 }, { o: 13*60, c: 18*60 }],
-        4: [{ o: 9*60, c: 12*60 }, { o: 13*60, c: 18*60 }],
-        5: [{ o: 9*60, c: 12*60 }, { o: 13*60, c: 18*60 }],
-        6: [{ o: 10*60, c: 13*60 }],
+    var MAPS_API_KEY = 'AIzaSyC57Y_82MVoM5Gaot3Fh-7LKEBoOjsxwVk';
+    var PLACE_ID = 'ChIJQ1tkAldnw0cRB18bskddtjk';
+    var CACHE_TTL = 60 * 60 * 1000;
+    var CACHE_KEY = 'cittel_gmb_hours';
+
+    var fallbackSchedule = {
+        1: [{ o: 9 * 60, c: 12 * 60 }, { o: 13 * 60, c: 18 * 60 }],
+        2: [{ o: 9 * 60, c: 12 * 60 }, { o: 13 * 60, c: 18 * 60 }],
+        3: [{ o: 9 * 60, c: 12 * 60 }, { o: 13 * 60, c: 18 * 60 }],
+        4: [{ o: 9 * 60, c: 12 * 60 }, { o: 13 * 60, c: 18 * 60 }],
+        5: [{ o: 9 * 60, c: 12 * 60 }, { o: 13 * 60, c: 18 * 60 }],
+        6: [{ o: 10 * 60, c: 13 * 60 }],
         0: []
     };
-    var dayNames = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];
 
     function fmt(mins) {
         var h = Math.floor(mins / 60), m = mins % 60;
         return h + ':' + (m < 10 ? '0' : '') + m;
     }
 
-    function getStatus() {
-        var now = new Date();
-        var day = now.getDay();
-        var mins = now.getHours() * 60 + now.getMinutes();
-        var sessions = schedule[day];
-
-        for (var i = 0; i < sessions.length; i++) {
-            var s = sessions[i];
-            if (mins >= s.o && mins < s.c) {
-                var remaining = s.c - mins;
-                var detail = remaining <= 60
-                    ? ', sluit over ' + remaining + ' min'
-                    : ' tot ' + fmt(s.c);
-                return { open: true, text: 'Nu open' + detail };
-            }
-        }
-        for (var i = 0; i < sessions.length; i++) {
-            if (mins < sessions[i].o) {
-                return { open: false, text: 'Gesloten, opent om ' + fmt(sessions[i].o) };
-            }
-        }
-        for (var d = 1; d <= 7; d++) {
-            var nextDay = (day + d) % 7;
-            var next = schedule[nextDay];
-            if (next && next.length > 0) {
-                var label = d === 1 ? 'morgen' : dayNames[nextDay];
-                return { open: false, text: 'Gesloten, opent ' + label + ' om ' + fmt(next[0].o) };
-            }
-        }
-        return { open: false, text: 'Gesloten' };
+    function saveCache(data) {
+        try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data })); } catch (e) {}
     }
 
-    function updateStatus() {
-        var status = getStatus();
-        var cls = status.open ? 'status-open' : 'status-closed';
-        ['store-status-bar', 'store-status-nav', 'store-status-info'].forEach(function (id) {
+    function loadCache() {
+        try {
+            var raw = sessionStorage.getItem(CACHE_KEY);
+            if (!raw) return null;
+            var obj = JSON.parse(raw);
+            return (Date.now() - obj.ts > CACHE_TTL) ? null : obj.data;
+        } catch (e) { return null; }
+    }
+
+function parseGmbData(place) {
+    var schedule = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
+    var specialDays = [];
+
+    // 1. Haal de STANDAARD uren op (voor de algemene weergave)
+    if (place.regularOpeningHours && place.regularOpeningHours.periods) {
+        place.regularOpeningHours.periods.forEach(p => {
+            var day = p.open.day;
+            var openMins = p.open.hour * 60 + p.open.minute;
+            var closeMins = p.close ? (p.close.hour * 60 + p.close.minute) : 1440;
+            schedule[day].push({ o: openMins, c: closeMins });
+        });
+    }
+
+    // 2. Haal de UITZONDERLIJKE uren op (voor vandaag en morgen)
+    if (place.currentOpeningHours && place.currentOpeningHours.specialDays) {
+        specialDays = place.currentOpeningHours.specialDays.map(d => ({
+            date: d.date.year + '-' + String(d.date.month).padStart(2, '0') + '-' + String(d.date.day).padStart(2, '0'),
+            closed: d.closed || false,
+            periods: (d.periods || []).map(p => ({
+                o: p.open.hour * 60 + p.open.minute,
+                c: p.close ? (p.close.hour * 60 + p.close.minute) : 1440
+            }))
+        }));
+    }
+
+    return { schedule: schedule, specialDays: specialDays };
+}
+
+    function computeStatus(data) {
+        var now = new Date();
+        var tomorrow = new Date(now); tomorrow.setDate(now.getDate() + 1);
+        
+        var dateStrToday = now.toISOString().split('T')[0];
+        var dateStrTomorrow = tomorrow.toISOString().split('T')[0];
+        
+        var mins = now.getHours() * 60 + now.getMinutes();
+        var day = now.getDay();
+
+        // 1. Check of er VANDAAG een uitzondering is
+        var todaySpecial = data.specialDays.find(d => d.date === dateStrToday);
+        var activeSessions = todaySpecial ? (todaySpecial.closed ? [] : todaySpecial.periods) : data.schedule[day];
+
+        // 2. Check of er MORGEN een uitzondering is (voor de melding)
+        var tomorrowSpecial = data.specialDays.find(d => d.date === dateStrTomorrow);
+        var extraNote = "";
+        if (tomorrowSpecial) {
+            extraNote = tomorrowSpecial.closed ? " (Morgen uitzonderlijk gesloten)" : " (Morgen gewijzigde uren)";
+        }
+
+        // Bepaal huidige status
+        for (var s of activeSessions) {
+            if (mins >= s.o && mins < s.c) {
+                return { open: true, text: 'Nu open tot ' + fmt(s.c) + extraNote };
+            }
+        }
+
+        var statusText = todaySpecial && todaySpecial.closed ? 'Vandaag uitzonderlijk gesloten' : 'Nu gesloten';
+        return { open: false, exception: !!todaySpecial, text: statusText + extraNote };
+    }
+
+    function applyStatus(status) {
+        var cls = status.open ? 'status-open' : (status.exception ? 'status-exception' : 'status-closed');
+        ['store-status-bar', 'store-status-nav', 'store-status-info'].forEach(id => {
             var el = document.getElementById(id);
             if (el) {
                 el.textContent = status.text;
-                el.classList.remove('status-open', 'status-closed');
-                el.classList.add(cls);
+                el.classList.remove('status-open', 'status-closed', 'status-exception');
+                el.classList.add('store-status', cls);
             }
         });
     }
 
-    updateStatus();
-    setInterval(updateStatus, 60000);
+    async function initPlacesStatus() {
+        var cached = loadCache();
+        if (cached) { applyStatus(computeStatus(cached)); return; }
+
+        try {
+            await (function(g){var h,p,m,p,t="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (p=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);p.src=`https://maps.googleapis.com/maps/api/js?`+e;d[q]=f;m.head.append(p)}));d[l]?(d[l]):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+                key: MAPS_API_KEY, v: "weekly", language: "nl"
+            });
+
+            const { Place } = await google.maps.importLibrary("places");
+            const place = new Place({ id: PLACE_ID });
+            // We halen nu ook 'specialOpeningHours' op!
+            await place.fetchFields({ fields: ['regularOpeningHours', 'currentOpeningHours'] });
+
+            const parsed = parseGmbData(place);
+            saveCache(parsed);
+            applyStatus(computeStatus(parsed));
+        } catch (err) {
+            console.error('Maps Error:', err);
+            applyStatus(computeStatus({ schedule: fallbackSchedule, specialDays: [] }));
+        }
+    }
+
+    initPlacesStatus();
 })();
 
 // OS-based single download button
 (function () {
     var ua = navigator.userAgent;
     var isMac = /Mac|iPhone|iPad|iPod/.test(ua) && !/Windows/.test(ua);
+    
+    console.log('💻 OS Détection:', isMac ? 'Mac/iOS' : 'Windows/Overig', '| UserAgent:', ua);
 
     // --- Download section: show primary button, add small alt link ---
     var winBtn = document.querySelector('.download-btn.windows');

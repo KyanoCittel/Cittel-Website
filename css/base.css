@@ -206,6 +206,16 @@ nav {
     background: #ef4444;
 }
 
+.store-status.status-exception {
+    background: #fff4cc;
+    color: #8a5a00;
+}
+
+.store-status.status-exception::before {
+    background: #FFB61B;
+    box-shadow: 0 0 0 2px rgba(255, 182, 27, 0.28);
+}
+
 .store-status--info,
 .store-status--nav {
     font-size: 0.88rem;
