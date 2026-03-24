@@ -238,7 +238,7 @@
 
 /* ---------- Remote / TeamViewer Section ---------- */
 .remote {
-    background: #0d1626;
+    background: #241a0c;
     padding: 5rem 0;
     position: relative;
     overflow: hidden;
@@ -532,7 +532,7 @@
     }
 
     .hero-overlay {
-        background: linear-gradient(160deg, rgba(13, 21, 38, 0.88) 0%, rgba(13, 21, 38, 0.65) 100%);
+        background: linear-gradient(160deg, rgba(30, 22, 10, 0.88) 0%, rgba(30, 22, 10, 0.65) 100%);
     }
 
     .hero-content {

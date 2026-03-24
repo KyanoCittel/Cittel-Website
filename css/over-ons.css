@@ -309,6 +309,59 @@
     margin-bottom: 1.2rem;
 }
 
+.diensten-link-points {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 0.15rem 0 1.4rem;
+}
+
+.diensten-link-points span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #fff8e6;
+    border: 1px solid #ffe3a8;
+    color: #7a5000;
+    border-radius: 999px;
+    padding: 0.42rem 0.78rem;
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+
+.diensten-link-points i {
+    color: #FFB61B;
+}
+
+.diensten-link-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.diensten-link-actions .btn-primary,
+.diensten-link-actions .diensten-link-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-radius: 999px;
+    padding: 0.82rem 1.25rem;
+    font-weight: 700;
+}
+
+.diensten-link-secondary {
+    background: transparent;
+    color: #1a1a2e;
+    border: 2px solid #dadce7;
+}
+
+.diensten-link-secondary:hover {
+    border-color: #FFB61B;
+    color: #7a5000;
+}
+
 /* =============================================
    Responsive — Over Ons Page
    ============================================= */
@@ -361,6 +414,16 @@
 }
 
 @media (max-width: 600px) {
+    .diensten-link-actions {
+        flex-direction: column;
+    }
+
+    .diensten-link-actions .btn-primary,
+    .diensten-link-actions .diensten-link-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
