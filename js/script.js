@@ -139,7 +139,7 @@ function parseGmbData(place) {
     var ua = navigator.userAgent;
     var isMac = /Mac|iPhone|iPad|iPod/.test(ua) && !/Windows/.test(ua);
     
-    console.log('💻 OS Détection:', isMac ? 'Mac/iOS' : 'Windows/Overig', '| UserAgent:', ua);
+    // console.log('💻 OS Détection:', isMac ? 'Mac/iOS' : 'Windows/Overig', '| UserAgent:', ua);
 
     // --- Download section: show primary button, add small alt link ---
     var winBtn = document.querySelector('.download-btn.windows');
