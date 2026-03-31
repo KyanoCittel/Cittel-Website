@@ -232,43 +232,5 @@
     </footer>
 
     <script src="js/script.js"></script>
-    <script>
-        const form = document.getElementById('contact-form');
-        const submitBtn = document.getElementById('submit-btn');
-        const feedback = document.getElementById('form-feedback');
-
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const formData = new FormData(form);
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Bezig met verzenden...';
-            feedback.className = 'form-feedback';
-            feedback.style.display = 'none';
-
-            try {
-                const response = await fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await response.json();
-
-                if (response.ok) {
-                    feedback.textContent = '✓ Bericht verzonden! Wij nemen zo snel mogelijk contact met u op.';
-                    feedback.className = 'form-feedback form-feedback--success';
-                    feedback.style.display = 'block';
-                    form.reset();
-                } else {
-                    throw new Error(data.message || 'Onbekende fout');
-                }
-            } catch (err) {
-                feedback.textContent = '✗ Er is iets misgegaan. Probeer het opnieuw of bel ons op 050 71 94 29.';
-                feedback.className = 'form-feedback form-feedback--error';
-                feedback.style.display = 'block';
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Verstuur bericht';
-            }
-        });
-    </script>
 </body>
 </html>

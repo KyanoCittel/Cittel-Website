@@ -410,3 +410,45 @@ document.querySelectorAll('.reveal').forEach(function (el) {
         panel.style.maxHeight = panel.scrollHeight + 'px';
     });
 })();
+
+// Contact form submit handler (moved from inline script in contact.html)
+(function () {
+    var form = document.getElementById('contact-form');
+    var submitBtn = document.getElementById('submit-btn');
+    var feedback = document.getElementById('form-feedback');
+
+    if (!form || !submitBtn || !feedback) return;
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var formData = new FormData(form);
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Bezig met verzenden...';
+        feedback.className = 'form-feedback';
+        feedback.style.display = 'none';
+
+        try {
+            var response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            });
+            var data = await response.json();
+
+            if (response.ok) {
+                feedback.textContent = '✓ Bericht verzonden! Wij nemen zo snel mogelijk contact met u op.';
+                feedback.className = 'form-feedback form-feedback--success';
+                feedback.style.display = 'block';
+                form.reset();
+            } else {
+                throw new Error(data.message || 'Onbekende fout');
+            }
+        } catch (err) {
+            feedback.textContent = '✗ Er is iets misgegaan. Probeer het opnieuw of bel ons op 050 71 94 29.';
+            feedback.className = 'form-feedback form-feedback--error';
+            feedback.style.display = 'block';
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Verstuur bericht';
+        }
+    });
+})();
