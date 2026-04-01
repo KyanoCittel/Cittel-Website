@@ -312,21 +312,35 @@
 }
 
 .diensten-cta {
-    padding: 0 0 5rem;
-    background: #f3f5fa;
+    padding: 5rem 0;
+    background: #0D1626;
+    position: relative;
+    overflow: hidden;
+}
+
+.diensten-cta::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 182, 27, 0.18) 0%, transparent 70%);
+    pointer-events: none;
 }
 
 .diensten-cta-inner {
     max-width: 780px;
     margin: 0 auto;
     text-align: center;
-    background:
-        radial-gradient(circle at 18% 20%, rgba(255, 177, 26, 0.2), transparent 36%),
-        linear-gradient(135deg, #1a1a2e 0%, #252842 65%, #333756 100%);
-    border: 1.2px solid rgba(255, 255, 255, 0.25);
-    border-radius: 22px;
-    padding: 2.5rem 1.8rem;
-    box-shadow: 0 22px 42px rgba(12, 36, 72, 0.34);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+    position: relative;
+    z-index: 1;
 }
 
 .diensten-cta-kicker {
@@ -492,10 +506,6 @@
     }
 
     .diensten-cta {
-        padding-bottom: 4.3rem;
-    }
-
-    .diensten-cta-inner {
-        padding: 2.05rem 1.2rem;
+        padding: 4rem 0;
     }
 }
