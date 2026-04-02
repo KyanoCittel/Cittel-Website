@@ -473,22 +473,24 @@
     .hero-actions,
     .diensten-cta-actions {
         flex-direction: column;
+        align-items: center;
     }
 
     .diensten-cta-highlights {
-        flex-direction: column;
-        align-items: stretch;
+        display: none;
     }
 
-    .diensten-cta-highlights span {
+    .diensten-cta-address {
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
+        text-align: center;
     }
 
     .hero-btn,
     .btn-cta-primary,
     .btn-cta-secondary {
         justify-content: center;
-        width: 100%;
     }
 
     .diensten-categories-grid .dienst-card {
@@ -507,5 +509,10 @@
 
     .diensten-cta {
         padding: 4rem 0;
+    }
+
+    .diensten-cta-inner {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
     }
 }

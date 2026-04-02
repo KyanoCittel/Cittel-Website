@@ -444,13 +444,18 @@
 }
 
 @media (max-width: 600px) {
+    .diensten-link-wrap {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
     .diensten-link-actions {
         flex-direction: column;
+        align-items: center;
     }
 
     .diensten-link-actions .btn-primary,
     .diensten-link-actions .diensten-link-secondary {
-        width: 100%;
         justify-content: center;
     }
 
