@@ -305,14 +305,14 @@ nav {
 }
 
 .page-hero h1 {
-    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-size: clamp(2.4rem, 6vw, 4rem);
     font-weight: 800;
     margin-bottom: 1rem;
-    line-height: 1.15;
+    line-height: 1.1;
 }
 
 .page-hero p {
-    font-size: 1.05rem;
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
     color: rgba(255, 255, 255, 0.8);
     max-width: 560px;
     margin: 0 auto;
