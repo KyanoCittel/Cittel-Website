@@ -480,6 +480,13 @@ document.querySelectorAll('.reveal').forEach(function (el) {
 })();
 
 // Contact form submit handler (moved from inline script in contact.html)
+// Op desktop: bel-knoppen verwijzen naar contactpagina i.p.v. tel:
+if (!('ontouchstart' in window) && !navigator.maxTouchPoints) {
+    document.querySelectorAll('a.hero-btn-primary[href^="tel:"], a.btn-cta-primary[href^="tel:"], a.nav-hours-call[href^="tel:"]').forEach(function (link) {
+        link.setAttribute('href', 'contact.html');
+    });
+}
+
 (function () {
     var form = document.getElementById('contact-form');
     var submitBtn = document.getElementById('submit-btn');
@@ -519,4 +526,5 @@ document.querySelectorAll('.reveal').forEach(function (el) {
             submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Verstuur bericht';
         }
     });
+
 })();
