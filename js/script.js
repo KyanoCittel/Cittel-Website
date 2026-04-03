@@ -245,6 +245,23 @@
 // Auto-update footer year
 document.getElementById('footer-year').textContent = new Date().getFullYear();
 
+// Nav glasmorfisme → solid on scroll
+(function () {
+    var nav = document.querySelector('nav');
+    var threshold = 50;
+
+    function onScroll() {
+        if (window.scrollY > threshold) {
+            nav.classList.add('nav-scrolled');
+        } else {
+            nav.classList.remove('nav-scrolled');
+        }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+})();
+
 // Mobile navigation toggle
 var toggle = document.querySelector('.mobile-toggle');
 var navLinks = document.querySelector('.nav-links');
@@ -494,8 +511,63 @@ if (!('ontouchstart' in window) && !navigator.maxTouchPoints) {
 
     if (!form || !submitBtn || !feedback) return;
 
+    var RATE_LIMIT_KEY = 'cittel_form_sends';
+    var MAX_SENDS_PER_HOUR = 3;
+    var COOLDOWN_MS = 30 * 60 * 1000; // 30 minuten
+
+    function getSendLog() {
+        try {
+            return JSON.parse(localStorage.getItem(RATE_LIMIT_KEY)) || [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    function checkRateLimit() {
+        var now = Date.now();
+        var log = getSendLog().filter(function (t) { return now - t < 3600000; }); // bewaar alleen laatste uur
+        localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(log));
+
+        if (log.length >= MAX_SENDS_PER_HOUR) {
+            return 'U heeft al ' + MAX_SENDS_PER_HOUR + ' berichten verstuurd dit uur. Probeer later opnieuw, of bel ons op 050 71 94 29.';
+        }
+
+        if (log.length > 0 && now - log[log.length - 1] < COOLDOWN_MS) {
+            var minLeft = Math.ceil((COOLDOWN_MS - (now - log[log.length - 1])) / 1000 / 60);
+            return 'Even geduld, u kunt over ' + minLeft + ' minuten     opnieuw een bericht sturen.';
+        }
+
+        return null;
+    }
+
+    function recordSend() {
+        var now = Date.now();
+        var log = getSendLog().filter(function (t) { return now - t < 3600000; });
+        log.push(now);
+        localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(log));
+    }
+
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
+
+        // Rate limit check
+        var limitMsg = checkRateLimit();
+        if (limitMsg) {
+            feedback.textContent = limitMsg;
+            feedback.className = 'form-feedback form-feedback--error';
+            feedback.style.display = 'block';
+            return;
+        }
+
+        // Captcha check (hCaptcha uses a textarea, not an input)
+        var captchaInput = form.querySelector('[name="h-captcha-response"]');
+        if (!captchaInput || !captchaInput.value) {
+            feedback.textContent = 'Vul de captcha in om te bevestigen dat u geen robot bent.';
+            feedback.className = 'form-feedback form-feedback--error';
+            feedback.style.display = 'block';
+            return;
+        }
+
         var formData = new FormData(form);
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Bezig met verzenden...';
@@ -510,10 +582,13 @@ if (!('ontouchstart' in window) && !navigator.maxTouchPoints) {
             var data = await response.json();
 
             if (response.ok) {
+                recordSend();
                 feedback.textContent = '✓ Bericht verzonden! Wij nemen zo snel mogelijk contact met u op.';
                 feedback.className = 'form-feedback form-feedback--success';
                 feedback.style.display = 'block';
                 form.reset();
+                // Reset captcha na succesvol verzenden
+                if (typeof hcaptcha !== 'undefined') hcaptcha.reset();
             } else {
                 throw new Error(data.message || 'Onbekende fout');
             }

@@ -7,6 +7,8 @@
 .hero {
     position: relative;
     min-height: 720px;
+    margin-top: -4.5rem;
+    padding-top: 4.5rem;
     background-image: url(../img/shop-front-small.webp);
     background-repeat: no-repeat;
     background-size: cover;
@@ -526,7 +528,8 @@
 @media (max-width: 768px) {
     /* Hero */
     .hero {
-        padding-top: 1rem;
+        margin-top: -3.75rem;
+        padding-top: 3.75rem;
         padding-bottom: 1rem;
         min-height: auto;
     }
