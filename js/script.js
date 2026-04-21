@@ -421,21 +421,36 @@ document.querySelectorAll('.reveal').forEach(function (el) {
 
     var items = accordionList.querySelectorAll('.acc-item');
     if (!items.length) return;
-    var photoImage = document.getElementById('accordionPhotoImage');
+    var photoImages = [
+        document.getElementById('accordionPhotoImage'),
+        document.getElementById('accordionPhotoImageAlt')
+    ];
+    var activeIndex = 0;
+    var currentSrc = photoImages[0] ? photoImages[0].getAttribute('src') : '';
 
     function updatePhoto(item) {
-        if (!photoImage) return;
+        if (!photoImages[0] || !photoImages[1]) return;
 
         var nextSrc = item.getAttribute('data-photo');
         var nextAlt = item.getAttribute('data-photo-alt') || '';
-        if (!nextSrc || photoImage.getAttribute('src') === nextSrc) return;
+        if (!nextSrc || currentSrc === nextSrc) return;
 
-        photoImage.classList.add('is-changing');
-        setTimeout(function () {
-            photoImage.setAttribute('src', nextSrc);
-            photoImage.setAttribute('alt', nextAlt);
-            photoImage.classList.remove('is-changing');
-        }, 120);
+        var nextIndex = activeIndex === 0 ? 1 : 0;
+        var nextImg = photoImages[nextIndex];
+        var prevImg = photoImages[activeIndex];
+
+        var loader = new Image();
+        loader.onload = loader.onerror = function () {
+            nextImg.setAttribute('src', nextSrc);
+            nextImg.setAttribute('alt', nextAlt);
+            // Force reflow so the opacity transition runs on the newly set src
+            void nextImg.offsetWidth;
+            nextImg.classList.add('is-active');
+            prevImg.classList.remove('is-active');
+            activeIndex = nextIndex;
+            currentSrc = nextSrc;
+        };
+        loader.src = nextSrc;
     }
 
     function closeItem(item) {
