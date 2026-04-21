@@ -232,6 +232,13 @@ nav.nav-scrolled {
     margin-top: 0.6rem;
 }
 
+.store-status--footer {
+    font-size: 0.82rem;
+    padding: 0.25rem 0.65rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.5rem;
+}
+
 .store-status--contact {
     font-size: 1rem;
     font-weight: 700;
@@ -674,6 +681,13 @@ footer {
         font-size: 1rem;
         color: rgba(255, 255, 255, 0.6);
         line-height: 1.8;
+    }
+
+    .nav-hours span.store-status {
+        display: inline-flex;
+        font-size: 0.88rem;
+        line-height: 1.2;
+        margin-top: 0.6rem;
     }
 
     .nav-hours-call {

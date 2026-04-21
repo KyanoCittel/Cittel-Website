@@ -153,7 +153,7 @@
     // ── DOM updaten ──
     function applyStatus(status) {
         var cls = status.open ? 'status-open' : (status.exception ? 'status-exception' : 'status-closed');
-        ['store-status-bar', 'store-status-nav', 'store-status-info'].forEach(function (id) {
+        ['store-status-bar', 'store-status-nav', 'store-status-info', 'store-status-footer'].forEach(function (id) {
             var el = document.getElementById(id);
             if (el) {
                 el.textContent = status.text;
