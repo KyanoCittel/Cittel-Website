@@ -574,15 +574,6 @@ if (!('ontouchstart' in window) && !navigator.maxTouchPoints) {
             return;
         }
 
-        // Captcha check (hCaptcha uses a textarea, not an input)
-        var captchaInput = form.querySelector('[name="h-captcha-response"]');
-        if (!captchaInput || !captchaInput.value) {
-            feedback.textContent = 'Vul de captcha in om te bevestigen dat u geen robot bent.';
-            feedback.className = 'form-feedback form-feedback--error';
-            feedback.style.display = 'block';
-            return;
-        }
-
         var formData = new FormData(form);
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Bezig met verzenden...';
@@ -602,8 +593,6 @@ if (!('ontouchstart' in window) && !navigator.maxTouchPoints) {
                 feedback.className = 'form-feedback form-feedback--success';
                 feedback.style.display = 'block';
                 form.reset();
-                // Reset captcha na succesvol verzenden
-                if (typeof hcaptcha !== 'undefined') hcaptcha.reset();
             } else {
                 throw new Error(data.message || 'Onbekende fout');
             }
