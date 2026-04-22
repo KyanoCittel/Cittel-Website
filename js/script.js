@@ -170,36 +170,44 @@
     }
 
     // ── Google Places laden ──
-    async function initPlacesStatus() {
-        var cached = loadCache();
-        if (cached) {
-            currentData = cached;
-            updateStatus();
-            setInterval(updateStatus, 60000);
-            return;
-        }
-
+    async function fetchPlacesData() {
         try {
             await (function(g){var h,p,m,t="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (p=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);p.src="https://maps.googleapis.com/maps/api/js?"+e;d[q]=f;m.head.append(p)}));d[l]?(d[l]):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
                 key: MAPS_API_KEY, v: "weekly", language: "nl"
             });
-
             var Place = (await google.maps.importLibrary("places")).Place;
             var place = new Place({ id: PLACE_ID });
             await place.fetchFields({ fields: ['regularOpeningHours', 'currentOpeningHours'] });
-
             currentData = parseGmbData(place);
             saveCache(currentData);
+            updateStatus();
         } catch (err) {
             console.error('Google Places Error:', err);
-            currentData = { schedule: fallbackSchedule, specialDays: [] };
         }
-
-        updateStatus();
-        setInterval(updateStatus, 60000);
     }
 
-    initPlacesStatus();
+    function initPlacesStatus() {
+        // 1. Render direct met cached of fallback data (geen netwerk-blocking)
+        var cached = loadCache();
+        currentData = cached || { schedule: fallbackSchedule, specialDays: [] };
+        updateStatus();
+        setInterval(updateStatus, 60000);
+
+        // 2. Verse data pas ophalen na page load (idle) — zonder LCP te blokkeren
+        if (cached) return;
+        var lazyLoad = function () { fetchPlacesData(); };
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(lazyLoad, { timeout: 5000 });
+        } else {
+            setTimeout(lazyLoad, 2500);
+        }
+    }
+
+    if (document.readyState === 'complete') {
+        initPlacesStatus();
+    } else {
+        window.addEventListener('load', initPlacesStatus);
+    }
 })();
 
 // OS-based single download button
@@ -220,11 +228,11 @@
         if (isMac) {
             winBtn.style.display = 'none';
             dlButtons.style.gridTemplateColumns = '1fr';
-            altLink.innerHTML = 'of <a href="download/WIN/Cittel Remote.exe"><i class="fa-brands fa-windows"></i> download voor Windows</a>';
+            altLink.innerHTML = 'of <a href="download/WIN/Cittel Remote.exe"><svg class="icon" width="16" height="16" aria-hidden="true"><use href="/img/icons.svg#i-brands-windows"/></svg> download voor Windows</a>';
         } else {
             macBtn.style.display = 'none';
             dlButtons.style.gridTemplateColumns = '1fr';
-            altLink.innerHTML = 'of <a href="download/MAC/Cittel Remote-MacOS.zip"><i class="fa-brands fa-apple"></i> download voor Mac</a>';
+            altLink.innerHTML = 'of <a href="download/MAC/Cittel Remote-MacOS.zip"><svg class="icon" width="16" height="16" aria-hidden="true"><use href="/img/icons.svg#i-brands-apple"/></svg> download voor Mac</a>';
         }
         dlButtons.parentNode.insertBefore(altLink, dlButtons.nextSibling);
     }
@@ -234,11 +242,138 @@
     navTvBtns.forEach(function (btn) {
         if (isMac) {
             btn.href = 'download/MAC/Cittel Remote-MacOS.zip';
-            btn.innerHTML = '<i class="fa-solid fa-download"></i> TeamViewer';
+            btn.innerHTML = '<svg class="icon" width="16" height="16" aria-hidden="true"><use href="/img/icons.svg#i-solid-download"/></svg> TeamViewer';
         } else {
             btn.href = 'download/WIN/Cittel Remote.exe';
-            btn.innerHTML = '<i class="fa-solid fa-download"></i> TeamViewer';
+            btn.innerHTML = '<svg class="icon" width="16" height="16" aria-hidden="true"><use href="/img/icons.svg#i-solid-download"/></svg> TeamViewer';
         }
+    });
+
+    // --- Remote support modal (shown when a download link is clicked) ---
+    var modalHTML =
+        '<dialog class="remote-modal" id="remoteModal">' +
+            '<form method="dialog" class="remote-modal-form">' +
+                '<button class="remote-modal-close" aria-label="Sluiten" value="cancel" type="submit">' +
+                    '<svg class="icon" width="16" height="16" aria-hidden="true"><use href="/img/icons.svg#i-solid-xmark"/></svg>' +
+                '</button>' +
+                '<h2 class="remote-modal-title">Download gestart</h2>' +
+                '<p class="remote-modal-sub">Uw download start automatisch. Zo niet, <a id="remoteModalManual" href="#">klik hier om opnieuw te downloaden</a>.</p>' +
+                '<ol class="remote-steps" id="remoteSteps"></ol>' +
+                '<a href="tel:+3250719429" class="remote-modal-call"><svg class="icon" width="16" height="16" aria-hidden="true"><use href="/img/icons.svg#i-solid-phone"/></svg> Bel nu 050 71 94 29</a>' +
+                '<p class="remote-modal-terms">Door uw ID door te geven aan onze medewerker gaat u akkoord met onze voorwaarden. Tarief: <strong>\u20AC 15,00 excl. BTW per begonnen kwartier</strong>. Verifieer uw gegevens telefonisch. Vragen? <a href="tel:+3250719429">050 71 94 29</a> of <a href="mailto:support@cittel.be">support@cittel.be</a>.</p>' +
+            '</form>' +
+        '</dialog>';
+
+    // Illustrations: small inline SVG visuals per step
+    var illOpenWin =
+        '<img src="/img/download-popup.png?v=3" alt="Cittel Remote.exe in de Edge download-balk" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:contain;display:block"/>';
+
+    var illCall =
+        '<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+            // Concentric rings
+            '<circle cx="100" cy="52" r="40" fill="#FFB61B" fill-opacity="0.12"/>' +
+            '<circle cx="100" cy="52" r="28" fill="#FFB61B" fill-opacity="0.25"/>' +
+            '<circle cx="100" cy="52" r="18" fill="#FFB61B"/>' +
+            // Centered phone (smaller, via nested SVG from FontAwesome)
+            '<svg x="90" y="42" width="20" height="20" viewBox="0 0 512 512">' +
+                '<path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z" fill="#ffffff"/>' +
+            '</svg>' +
+            '<text x="100" y="106" font-family="Inter,sans-serif" font-size="11" font-weight="800" fill="#1a1a2e" text-anchor="middle" letter-spacing="0.5">050 71 94 29</text>' +
+        '</svg>';
+
+    var illId =
+        '<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+            // Window frame
+            '<rect x="24" y="6" width="152" height="108" rx="3" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>' +
+            // Title bar (light gray)
+            '<rect x="24" y="6" width="152" height="14" fill="#f3f4f6"/>' +
+            // App icon in title
+            '<rect x="30" y="9" width="8" height="8" rx="1.5" fill="#2f88d1"/>' +
+            '<rect x="32" y="11" width="2" height="2" fill="#ffffff"/>' +
+            '<rect x="35" y="11" width="1.5" height="1.5" fill="#ffffff" fill-opacity="0.7"/>' +
+            '<rect x="32" y="14" width="4" height="2" fill="#ffffff"/>' +
+            '<text x="42" y="15.5" font-family="Inter,sans-serif" font-size="6.5" font-weight="600" fill="#1a1a2e">Cittel Remote Support</text>' +
+            // Window controls
+            '<rect x="145" y="12" width="6" height="1.5" fill="#6b7280"/>' +
+            '<rect x="154" y="10" width="6" height="6" fill="none" stroke="#6b7280" stroke-width="1"/>' +
+            '<path d="M164 10 L170 16 M170 10 L164 16" stroke="#6b7280" stroke-width="1.2"/>' +
+            // Cittel teal brand header
+            '<rect x="24" y="20" width="152" height="26" fill="#2c6372"/>' +
+            // "Cittel" logotype (stylized)
+            '<text x="100" y="38" font-family="Inter,sans-serif" font-size="14" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="0.5">Cittel</text>' +
+            '<rect x="71" y="26" width="3" height="3" fill="#ffffff" fill-opacity="0.5"/>' +
+            '<rect x="75" y="26" width="3" height="3" fill="#ffffff" fill-opacity="0.8"/>' +
+            '<rect x="71" y="30" width="3" height="3" fill="#ffffff" fill-opacity="0.8"/>' +
+            '<rect x="75" y="30" width="3" height="3" fill="#ffffff"/>' +
+            // Allow control section (lighter gray strip)
+            '<rect x="24" y="46" width="152" height="10" fill="#e5e7eb"/>' +
+            '<text x="30" y="53" font-family="Inter,sans-serif" font-size="6" font-weight="500" fill="#374151">Afstandsbediening toestaan</text>' +
+            '<circle cx="168" cy="51" r="2" fill="none" stroke="#6b7280" stroke-width="1"/>' +
+            '<path d="M166 51 h4 M168 49 v4" stroke="#6b7280" stroke-width="0.6"/>' +
+            // Dark teal ID body
+            '<rect x="24" y="56" width="152" height="58" fill="#2c6372"/>' +
+            // Uw ID label (blue tag)
+            '<path d="M30 64 h22 l3 4 l-3 4 h-22 z" fill="#2f88d1"/>' +
+            '<text x="41" y="71" font-family="Inter,sans-serif" font-size="5.5" font-weight="700" fill="#ffffff" text-anchor="middle">Uw ID</text>' +
+            '<text x="168" y="73" font-family="Inter,sans-serif" font-size="12" font-weight="800" fill="#ffffff" text-anchor="end" letter-spacing="1">649 594 001</text>' +
+            '<line x1="60" y1="77" x2="172" y2="77" stroke="#ffffff" stroke-opacity="0.2" stroke-width="0.5"/>' +
+            // Wachtwoord label (blue tag)
+            '<path d="M30 82 h30 l3 4 l-3 4 h-30 z" fill="#2f88d1"/>' +
+            '<text x="45" y="89" font-family="Inter,sans-serif" font-size="5.5" font-weight="700" fill="#ffffff" text-anchor="middle">Wachtwoord</text>' +
+            '<text x="168" y="91" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#ffffff" text-anchor="end">ky1s54q4</text>' +
+            // Status bar
+            '<circle cx="30" cy="106" r="2" fill="#10b981"/>' +
+            '<text x="36" y="108" font-family="Inter,sans-serif" font-size="5" fill="#a7c6ce">Gereed voor verbinding</text>' +
+        '</svg>';
+
+    var illOpenMac =
+        '<img src="/img/CittelRemoteMac.png?v=3" alt="Cittel Remote app op macOS" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:contain;display:block"/>';
+
+    var illPermission =
+        '<img src="/img/CittelRemoteMacToegang.png?v=3" alt="macOS toestemming voor Cittel Remote" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:contain;display:block"/>';
+
+    var illMacEnd =
+        '<img src="/img/CittelRemoteMacEind.png?v=3" alt="Cittel Remote Support dialoog op macOS" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:contain;display:block"/>';
+
+    var winSteps = [
+        { t: 'Open het bestand', d: 'Klik bovenaan je browser op het gedownloade bestand om Cittel Remote te starten.', i: illOpenWin },
+        { t: 'Bel ons', d: 'Bel <a href="tel:+3250719429">050 71 94 29</a>. Onze technicus begeleidt u verder.', i: illCall },
+        { t: 'Geef uw ID door', d: 'Geef het getoonde ID-nummer aan onze technicus. Die neemt dan over.', i: illId }
+    ];
+    var macSteps = [
+        { t: 'Pak uit en open', d: 'Dubbelklik op <strong>.zip</strong> en open daarna <strong>Cittel Remote</strong>.', i: illOpenMac },
+        { t: 'Sta toestemming toe', d: 'Indien macOS blokkeert, ga naar <em>Systeeminstellingen &rsaquo; Privacy &amp; Beveiliging</em>.', i: illPermission },
+        { t: 'Bel en geef uw ID door', d: 'Bel <a href="tel:+3250719429">050 71 94 29</a> en geef het getoonde ID-nummer door.', i: illMacEnd }
+    ];
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    var modal = document.getElementById('remoteModal');
+    var stepsEl = document.getElementById('remoteSteps');
+    var manualLink = document.getElementById('remoteModalManual');
+
+    function openModal(href) {
+        var steps = /MAC\//i.test(href) ? macSteps : winSteps;
+        stepsEl.innerHTML = steps.map(function (s, i) {
+            return '<li class="remote-step"><div class="remote-step-ill">' + s.i + '</div><div class="remote-step-body"><span class="remote-step-num">' + (i + 1) + '</span><strong>' + s.t + '</strong><p>' + s.d + '</p></div></li>';
+        }).join('');
+        manualLink.href = href;
+        if (typeof modal.showModal === 'function') {
+            modal.showModal();
+        } else {
+            modal.setAttribute('open', '');
+        }
+    }
+
+    document.addEventListener('click', function (e) {
+        var a = e.target.closest('a[href*="download/WIN/"], a[href*="download/MAC/"]');
+        if (!a) return;
+        // Don't preventDefault — laat browser meteen downloaden
+        openModal(a.getAttribute('href'));
+    });
+
+    // Close on backdrop click
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) modal.close();
     });
 })();
 
@@ -269,7 +404,7 @@ var navLinks = document.querySelector('.nav-links');
 toggle.addEventListener('click', function () {
     var isOpen = navLinks.classList.toggle('open');
     toggle.setAttribute('aria-expanded', isOpen);
-    toggle.querySelector('i').className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    toggle.querySelector('use').setAttribute('href', isOpen ? '/img/icons.svg#i-solid-xmark' : '/img/icons.svg#i-solid-bars');
 });
 
 // Close mobile menu when a link is clicked
@@ -277,7 +412,7 @@ document.querySelectorAll('.nav-links a').forEach(function (link) {
     link.addEventListener('click', function () {
         navLinks.classList.remove('open');
         toggle.setAttribute('aria-expanded', 'false');
-        toggle.querySelector('i').className = 'fa-solid fa-bars';
+        toggle.querySelector('use').setAttribute('href', '/img/icons.svg#i-solid-bars');
     });
 });
 
@@ -574,18 +709,9 @@ if (!('ontouchstart' in window) && !navigator.maxTouchPoints) {
             return;
         }
 
-        // Captcha check (hCaptcha uses a textarea, not an input)
-        var captchaInput = form.querySelector('[name="h-captcha-response"]');
-        if (!captchaInput || !captchaInput.value) {
-            feedback.textContent = 'Vul de captcha in om te bevestigen dat u geen robot bent.';
-            feedback.className = 'form-feedback form-feedback--error';
-            feedback.style.display = 'block';
-            return;
-        }
-
         var formData = new FormData(form);
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Bezig met verzenden...';
+        submitBtn.innerHTML = '<svg class="icon icon-spin" width="16" height="16" aria-hidden="true"><use href="/img/icons.svg#i-solid-spinner"/></svg> Bezig met verzenden...';
         feedback.className = 'form-feedback';
         feedback.style.display = 'none';
 
@@ -602,8 +728,6 @@ if (!('ontouchstart' in window) && !navigator.maxTouchPoints) {
                 feedback.className = 'form-feedback form-feedback--success';
                 feedback.style.display = 'block';
                 form.reset();
-                // Reset captcha na succesvol verzenden
-                if (typeof hcaptcha !== 'undefined') hcaptcha.reset();
             } else {
                 throw new Error(data.message || 'Onbekende fout');
             }
@@ -613,7 +737,7 @@ if (!('ontouchstart' in window) && !navigator.maxTouchPoints) {
             feedback.style.display = 'block';
         } finally {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Verstuur bericht';
+            submitBtn.innerHTML = '<svg class="icon" width="16" height="16" aria-hidden="true"><use href="/img/icons.svg#i-solid-paper-plane"/></svg> Verstuur bericht';
         }
     });
 
