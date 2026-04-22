@@ -220,11 +220,11 @@
         if (isMac) {
             winBtn.style.display = 'none';
             dlButtons.style.gridTemplateColumns = '1fr';
-            altLink.innerHTML = 'of <a href="download/WIN/Cittel Remote.exe"><i class="fa-brands fa-windows"></i> download voor Windows</a>';
+            altLink.innerHTML = 'of <a href="download/WIN/Cittel Remote.exe"><svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-brands-windows"/></svg> download voor Windows</a>';
         } else {
             macBtn.style.display = 'none';
             dlButtons.style.gridTemplateColumns = '1fr';
-            altLink.innerHTML = 'of <a href="download/MAC/Cittel Remote-MacOS.zip"><i class="fa-brands fa-apple"></i> download voor Mac</a>';
+            altLink.innerHTML = 'of <a href="download/MAC/Cittel Remote-MacOS.zip"><svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-brands-apple"/></svg> download voor Mac</a>';
         }
         dlButtons.parentNode.insertBefore(altLink, dlButtons.nextSibling);
     }
@@ -234,10 +234,10 @@
     navTvBtns.forEach(function (btn) {
         if (isMac) {
             btn.href = 'download/MAC/Cittel Remote-MacOS.zip';
-            btn.innerHTML = '<i class="fa-solid fa-download"></i> TeamViewer';
+            btn.innerHTML = '<svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-solid-download"/></svg> TeamViewer';
         } else {
             btn.href = 'download/WIN/Cittel Remote.exe';
-            btn.innerHTML = '<i class="fa-solid fa-download"></i> TeamViewer';
+            btn.innerHTML = '<svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-solid-download"/></svg> TeamViewer';
         }
     });
 })();
@@ -269,7 +269,7 @@ var navLinks = document.querySelector('.nav-links');
 toggle.addEventListener('click', function () {
     var isOpen = navLinks.classList.toggle('open');
     toggle.setAttribute('aria-expanded', isOpen);
-    toggle.querySelector('i').className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    toggle.querySelector('use').setAttribute('href', isOpen ? '/img/icons.svg#i-solid-xmark' : '/img/icons.svg#i-solid-bars');
 });
 
 // Close mobile menu when a link is clicked
@@ -277,7 +277,7 @@ document.querySelectorAll('.nav-links a').forEach(function (link) {
     link.addEventListener('click', function () {
         navLinks.classList.remove('open');
         toggle.setAttribute('aria-expanded', 'false');
-        toggle.querySelector('i').className = 'fa-solid fa-bars';
+        toggle.querySelector('use').setAttribute('href', '/img/icons.svg#i-solid-bars');
     });
 });
 
@@ -576,7 +576,7 @@ if (!('ontouchstart' in window) && !navigator.maxTouchPoints) {
 
         var formData = new FormData(form);
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Bezig met verzenden...';
+        submitBtn.innerHTML = '<svg class="icon icon-spin" aria-hidden="true"><use href="/img/icons.svg#i-solid-spinner"/></svg> Bezig met verzenden...';
         feedback.className = 'form-feedback';
         feedback.style.display = 'none';
 
@@ -602,7 +602,7 @@ if (!('ontouchstart' in window) && !navigator.maxTouchPoints) {
             feedback.style.display = 'block';
         } finally {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Verstuur bericht';
+            submitBtn.innerHTML = '<svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-solid-paper-plane"/></svg> Verstuur bericht';
         }
     });
 

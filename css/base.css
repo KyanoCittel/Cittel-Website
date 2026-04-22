@@ -12,6 +12,23 @@
     font-display: swap;
 }
 
+/* ---------- Icons (SVG sprite) ---------- */
+.icon {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    vertical-align: -0.125em;
+    fill: currentColor;
+    flex-shrink: 0;
+}
+.icon-spin {
+    animation: icon-spin 1s linear infinite;
+}
+@keyframes icon-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
 /* ---------- Reset & Globals ---------- */
 *, *::before, *::after {
     box-sizing: border-box;

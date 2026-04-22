@@ -9,13 +9,19 @@
     min-height: 720px;
     margin-top: -4.5rem;
     padding-top: 4.5rem;
-    background-image: url(../img/shop-front-small.webp);
+    background-image: url(../img/shop-front-mobile.webp);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     display: flex;
     align-items: center;
     overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .hero {
+        background-image: url(../img/shop-front-small.webp);
+    }
 }
 
 .hero-overlay {
