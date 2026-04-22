@@ -228,11 +228,11 @@
         if (isMac) {
             winBtn.style.display = 'none';
             dlButtons.style.gridTemplateColumns = '1fr';
-            altLink.innerHTML = 'of <a href="download/WIN/Cittel Remote.exe"><svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-brands-windows"/></svg> download voor Windows</a>';
+            altLink.innerHTML = 'of <a href="download/WIN/Cittel Remote.exe"><svg class="icon" width="16" height="16" aria-hidden="true"><use href="/img/icons.svg#i-brands-windows"/></svg> download voor Windows</a>';
         } else {
             macBtn.style.display = 'none';
             dlButtons.style.gridTemplateColumns = '1fr';
-            altLink.innerHTML = 'of <a href="download/MAC/Cittel Remote-MacOS.zip"><svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-brands-apple"/></svg> download voor Mac</a>';
+            altLink.innerHTML = 'of <a href="download/MAC/Cittel Remote-MacOS.zip"><svg class="icon" width="16" height="16" aria-hidden="true"><use href="/img/icons.svg#i-brands-apple"/></svg> download voor Mac</a>';
         }
         dlButtons.parentNode.insertBefore(altLink, dlButtons.nextSibling);
     }
@@ -242,10 +242,10 @@
     navTvBtns.forEach(function (btn) {
         if (isMac) {
             btn.href = 'download/MAC/Cittel Remote-MacOS.zip';
-            btn.innerHTML = '<svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-solid-download"/></svg> TeamViewer';
+            btn.innerHTML = '<svg class="icon" width="16" height="16" aria-hidden="true"><use href="/img/icons.svg#i-solid-download"/></svg> TeamViewer';
         } else {
             btn.href = 'download/WIN/Cittel Remote.exe';
-            btn.innerHTML = '<svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-solid-download"/></svg> TeamViewer';
+            btn.innerHTML = '<svg class="icon" width="16" height="16" aria-hidden="true"><use href="/img/icons.svg#i-solid-download"/></svg> TeamViewer';
         }
     });
 })();
@@ -584,7 +584,7 @@ if (!('ontouchstart' in window) && !navigator.maxTouchPoints) {
 
         var formData = new FormData(form);
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<svg class="icon icon-spin" aria-hidden="true"><use href="/img/icons.svg#i-solid-spinner"/></svg> Bezig met verzenden...';
+        submitBtn.innerHTML = '<svg class="icon icon-spin" width="16" height="16" aria-hidden="true"><use href="/img/icons.svg#i-solid-spinner"/></svg> Bezig met verzenden...';
         feedback.className = 'form-feedback';
         feedback.style.display = 'none';
 
@@ -610,7 +610,7 @@ if (!('ontouchstart' in window) && !navigator.maxTouchPoints) {
             feedback.style.display = 'block';
         } finally {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '<svg class="icon" aria-hidden="true"><use href="/img/icons.svg#i-solid-paper-plane"/></svg> Verstuur bericht';
+            submitBtn.innerHTML = '<svg class="icon" width="16" height="16" aria-hidden="true"><use href="/img/icons.svg#i-solid-paper-plane"/></svg> Verstuur bericht';
         }
     });
 
