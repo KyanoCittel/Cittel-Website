@@ -4,6 +4,10 @@ RewriteEngine On
 # Custom 404 pagina
 ErrorDocument 404 /404.html
 
+# /index of /index.html → redirect naar / (root)
+RewriteCond %{THE_REQUEST} /index(\.html)?[\s?] [NC]
+RewriteRule ^ / [R=301,L]
+
 # Als iemand /page.html opent → redirect naar /page (301)
 RewriteCond %{THE_REQUEST} /([^.]+)\.html[\s?] [NC]
 RewriteRule ^ /%1 [R=301,L]
