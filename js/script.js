@@ -170,36 +170,44 @@
     }
 
     // ── Google Places laden ──
-    async function initPlacesStatus() {
-        var cached = loadCache();
-        if (cached) {
-            currentData = cached;
-            updateStatus();
-            setInterval(updateStatus, 60000);
-            return;
-        }
-
+    async function fetchPlacesData() {
         try {
             await (function(g){var h,p,m,t="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (p=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);p.src="https://maps.googleapis.com/maps/api/js?"+e;d[q]=f;m.head.append(p)}));d[l]?(d[l]):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
                 key: MAPS_API_KEY, v: "weekly", language: "nl"
             });
-
             var Place = (await google.maps.importLibrary("places")).Place;
             var place = new Place({ id: PLACE_ID });
             await place.fetchFields({ fields: ['regularOpeningHours', 'currentOpeningHours'] });
-
             currentData = parseGmbData(place);
             saveCache(currentData);
+            updateStatus();
         } catch (err) {
             console.error('Google Places Error:', err);
-            currentData = { schedule: fallbackSchedule, specialDays: [] };
         }
-
-        updateStatus();
-        setInterval(updateStatus, 60000);
     }
 
-    initPlacesStatus();
+    function initPlacesStatus() {
+        // 1. Render direct met cached of fallback data (geen netwerk-blocking)
+        var cached = loadCache();
+        currentData = cached || { schedule: fallbackSchedule, specialDays: [] };
+        updateStatus();
+        setInterval(updateStatus, 60000);
+
+        // 2. Verse data pas ophalen na page load (idle) — zonder LCP te blokkeren
+        if (cached) return;
+        var lazyLoad = function () { fetchPlacesData(); };
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(lazyLoad, { timeout: 5000 });
+        } else {
+            setTimeout(lazyLoad, 2500);
+        }
+    }
+
+    if (document.readyState === 'complete') {
+        initPlacesStatus();
+    } else {
+        window.addEventListener('load', initPlacesStatus);
+    }
 })();
 
 // OS-based single download button
