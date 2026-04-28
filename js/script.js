@@ -51,9 +51,23 @@
         }
 
         if (place.currentOpeningHours && place.currentOpeningHours.specialDays) {
+            try { console.log('[Cittel] specialDays raw:', JSON.stringify(place.currentOpeningHours.specialDays)); } catch(e) {}
             specialDays = place.currentOpeningHours.specialDays.map(function (d) {
+                // Date kan op verschillende manieren komen: { year, month, day },
+                // een JS Date object, of een ISO string. Ook kan het direct op d staan.
+                var raw = d.date || d;
+                var dateStr = null;
+                if (raw && typeof raw.year === 'number') {
+                    dateStr = raw.year + '-' + String(raw.month).padStart(2,'0') + '-' + String(raw.day).padStart(2,'0');
+                } else if (raw instanceof Date && !isNaN(raw)) {
+                    dateStr = raw.toISOString().split('T')[0];
+                } else if (typeof raw === 'string') {
+                    var m = raw.match(/^(\d{4})-(\d{2})-(\d{2})/);
+                    if (m) dateStr = m[1] + '-' + m[2] + '-' + m[3];
+                }
+                if (!dateStr) return null;
                 return {
-                    date: d.date.year + '-' + String(d.date.month).padStart(2,'0') + '-' + String(d.date.day).padStart(2,'0'),
+                    date: dateStr,
                     closed: d.closed || false,
                     periods: (d.periods || []).map(function (p) {
                         return {
@@ -62,7 +76,7 @@
                         };
                     })
                 };
-            });
+            }).filter(Boolean);
         }
 
         return { schedule: schedule, specialDays: specialDays };
