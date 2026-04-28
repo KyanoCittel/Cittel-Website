@@ -39,7 +39,7 @@
 /* ---------- Font ---------- */
 @font-face {
     font-family: 'Inter';
-    src: url('../font/Inter/Inter-Variable.woff2') format('woff2');
+    src: url('../font/Inter/Inter-Variable.woff2?v=3') format('woff2');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
