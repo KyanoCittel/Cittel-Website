@@ -1,0 +1,7 @@
+# Blokkeer directe toegang tot cache- en config-bestanden
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+<Files "*.json">
+    Require all denied
+</Files>

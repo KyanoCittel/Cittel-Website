@@ -1,7 +1,5 @@
-// Store open/closed status – Google Places + fallback + live updates
+// Store open/closed status – server-side proxy + fallback + live updates
 (function () {
-    var MAPS_API_KEY = 'AIzaSyC57Y_82MVoM5Gaot3Fh-7LKEBoOjsxwVk';
-    var PLACE_ID = 'ChIJQ1tkAldnw0cRB18bskddtjk';
     var CACHE_TTL = 60 * 60 * 1000;
     var CACHE_KEY = 'cittel_gmb_hours';
 
@@ -245,21 +243,16 @@
         }
     }
 
-    // ── Google Places laden ──
-    async function fetchPlacesData() {
-        try {
-            await (function(g){var h,p,m,t="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (p=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);p.src="https://maps.googleapis.com/maps/api/js?"+e;d[q]=f;m.head.append(p)}));d[l]?(d[l]):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-                key: MAPS_API_KEY, v: "weekly", language: "nl"
-            });
-            var Place = (await google.maps.importLibrary("places")).Place;
-            var place = new Place({ id: PLACE_ID });
-            await place.fetchFields({ fields: ['regularOpeningHours', 'currentOpeningHours'] });
-            currentData = parseGmbData(place);
-            saveCache(currentData);
-            updateStatus();
-        } catch (err) {
-            console.error('Google Places Error:', err);
-        }
+    // ── Openingsuren laden via server-side proxy (api/hours.php) ──
+    function fetchPlacesData() {
+        return fetch('/api/hours.php', { cache: 'no-store' })
+            .then(function (r) { return r.ok ? r.json() : Promise.reject(r.status); })
+            .then(function (data) {
+                currentData = parseGmbData(data);
+                saveCache(currentData);
+                updateStatus();
+            })
+            .catch(function (err) { console.error('Cittel hours fetch error:', err); });
     }
 
     function initPlacesStatus() {
