@@ -51,7 +51,6 @@
         }
 
         if (place.currentOpeningHours && place.currentOpeningHours.specialDays) {
-            try { console.log('[Cittel] specialDays raw:', JSON.stringify(place.currentOpeningHours.specialDays)); } catch(e) {}
             specialDays = place.currentOpeningHours.specialDays.map(function (d) {
                 // Date kan op verschillende manieren komen: { year, month, day },
                 // een JS Date object, of een ISO string. Ook kan het direct op d staan.
@@ -94,15 +93,19 @@
         var mins = now.getHours() * 60 + now.getMinutes();
         var day = now.getDay();
 
+        var isSpecialClosed = function (s) {
+            return s && (s.closed === true || !s.periods || s.periods.length === 0);
+        };
+
         var todaySpecial = data.specialDays.find(function (d) { return d.date === dateStrToday; });
         var activeSessions = todaySpecial
-            ? (todaySpecial.closed ? [] : todaySpecial.periods)
+            ? (isSpecialClosed(todaySpecial) ? [] : todaySpecial.periods)
             : data.schedule[day];
 
         var tomorrowSpecial = data.specialDays.find(function (d) { return d.date === dateStrTomorrow; });
         var extraNote = '';
         if (tomorrowSpecial) {
-            extraNote = tomorrowSpecial.closed
+            extraNote = isSpecialClosed(tomorrowSpecial)
                 ? ' (morgen uitzonderlijk gesloten)'
                 : ' (morgen gewijzigde uren)';
         }
@@ -120,7 +123,7 @@
         }
 
         // Uitzonderlijk gesloten vandaag
-        if (todaySpecial && todaySpecial.closed) {
+        if (isSpecialClosed(todaySpecial)) {
             var nextOpen = findNextOpen(data, day, 1);
             var closedText = 'Vandaag uitzonderlijk gesloten';
             if (nextOpen) closedText += ', opent ' + nextOpen;
@@ -150,7 +153,7 @@
 
             var sessions;
             if (special) {
-                if (special.closed) continue;
+                if (special.closed === true || !special.periods || special.periods.length === 0) continue;
                 sessions = special.periods;
             } else {
                 sessions = data.schedule[nextDay];
@@ -200,7 +203,9 @@
         var todayStr = today.toISOString().split('T')[0];
 
         var upcoming = data.specialDays.filter(function (d) {
-            if (!d.closed) return false;
+            // Behandel als gesloten: closed=true OF geen periodes
+            var isClosed = d.closed === true || !d.periods || d.periods.length === 0;
+            if (!isClosed) return false;
             var dDate = new Date(d.date + 'T00:00:00');
             return dDate >= today && dDate <= horizon;
         }).sort(function (a, b) { return a.date < b.date ? -1 : 1; });
