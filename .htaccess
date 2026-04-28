@@ -8,9 +8,9 @@ ErrorDocument 404 /404.html
 RewriteCond %{HTTPS} off
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
-# Forceer non-www (www.cittel.be → cittel.be)
-RewriteCond %{HTTP_HOST} ^www\.cittel\.be$ [NC]
-RewriteRule ^ https://cittel.be%{REQUEST_URI} [R=301,L]
+# Forceer www (cittel.be → www.cittel.be)
+RewriteCond %{HTTP_HOST} ^cittel\.be$ [NC]
+RewriteRule ^ https://www.cittel.be%{REQUEST_URI} [R=301,L]
 
 # /index of /index.html → redirect naar / (root)
 RewriteCond %{THE_REQUEST} /index(\.html)?[\s?] [NC]
