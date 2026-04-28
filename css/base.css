@@ -3,6 +3,39 @@
    Page Hero, Footer & Shared Section Labels
    ============================================= */
 
+/* ---------- Closure announcement banner ---------- */
+.closure-banner {
+    display: none;
+    background: linear-gradient(90deg, #FFB61B 0%, #ffa500 100%);
+    color: #1a1a2e;
+    padding: 0.7rem 1rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.45;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.closure-banner.is-visible { display: block; }
+.closure-banner.is-today {
+    background: linear-gradient(90deg, #dc2626 0%, #b91c1c 100%);
+    color: #ffffff;
+}
+.closure-banner-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+.closure-banner .icon {
+    flex-shrink: 0;
+}
+@media (max-width: 600px) {
+    .closure-banner { font-size: 0.85rem; padding: 0.6rem 0.85rem; }
+}
+
 /* ---------- Font ---------- */
 @font-face {
     font-family: 'Inter';

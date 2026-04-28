@@ -163,9 +163,66 @@
         });
     }
 
+    // ── Closure banner: toon uitzonderlijke sluitingen binnen 7 dagen ──
+    var monthNames = ['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+
+    function formatClosureDate(dateStr) {
+        // dateStr is "YYYY-MM-DD"
+        var parts = dateStr.split('-');
+        var d = new Date(parts[0], parts[1] - 1, parts[2]);
+        return dayNames[d.getDay()] + ' ' + parseInt(parts[2], 10) + ' ' + monthNames[parts[1] - 1];
+    }
+
+    function applyClosureBanner(data) {
+        var banner = document.getElementById('closureBanner');
+        var textEl = document.getElementById('closureBannerText');
+        if (!banner || !textEl || !data || !data.specialDays) return;
+
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var horizon = new Date(today);
+        horizon.setDate(today.getDate() + 7);
+
+        var todayStr = today.toISOString().split('T')[0];
+
+        var upcoming = data.specialDays.filter(function (d) {
+            if (!d.closed) return false;
+            var dDate = new Date(d.date + 'T00:00:00');
+            return dDate >= today && dDate <= horizon;
+        }).sort(function (a, b) { return a.date < b.date ? -1 : 1; });
+
+        if (upcoming.length === 0) {
+            banner.classList.remove('is-visible', 'is-today');
+            return;
+        }
+
+        var isToday = upcoming[0].date === todayStr;
+        var text;
+        if (isToday && upcoming.length === 1) {
+            text = 'Vandaag uitzonderlijk gesloten';
+        } else if (isToday) {
+            var rest = upcoming.slice(1).map(function (d) { return formatClosureDate(d.date); });
+            text = 'Vandaag uitzonderlijk gesloten — ook gesloten op ' + joinDates(rest);
+        } else {
+            var dates = upcoming.map(function (d) { return formatClosureDate(d.date); });
+            text = 'Uitzonderlijk gesloten op ' + joinDates(dates);
+        }
+
+        textEl.textContent = text;
+        banner.classList.add('is-visible');
+        banner.classList.toggle('is-today', isToday);
+    }
+
+    function joinDates(arr) {
+        if (arr.length === 1) return arr[0];
+        if (arr.length === 2) return arr[0] + ' en ' + arr[1];
+        return arr.slice(0, -1).join(', ') + ' en ' + arr[arr.length - 1];
+    }
+
     function updateStatus() {
         if (currentData) {
             applyStatus(computeStatus(currentData));
+            applyClosureBanner(currentData);
         }
     }
 
