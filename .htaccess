@@ -4,11 +4,8 @@ RewriteEngine On
 # Custom 404 pagina
 ErrorDocument 404 /404.html
 
-# Forceer HTTPS (http:// → https://)
-RewriteCond %{HTTPS} off
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-
-# Forceer www (cittel.be → www.cittel.be)
+# Forceer HTTPS + www in één stap (vermijdt omleidingsketens)
+RewriteCond %{HTTPS} off [OR]
 RewriteCond %{HTTP_HOST} ^cittel\.be$ [NC]
 RewriteRule ^ https://www.cittel.be%{REQUEST_URI} [R=301,L]
 
