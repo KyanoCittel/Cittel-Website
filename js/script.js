@@ -100,14 +100,6 @@
             ? (isSpecialClosed(todaySpecial) ? [] : todaySpecial.periods)
             : data.schedule[day];
 
-        var tomorrowSpecial = data.specialDays.find(function (d) { return d.date === dateStrTomorrow; });
-        var extraNote = '';
-        if (tomorrowSpecial) {
-            extraNote = isSpecialClosed(tomorrowSpecial)
-                ? ' (morgen uitzonderlijk gesloten)'
-                : ' (morgen gewijzigde uren)';
-        }
-
         // Zijn we nu open?
         for (var i = 0; i < activeSessions.length; i++) {
             var s = activeSessions[i];
@@ -116,29 +108,29 @@
                 var detail = remaining <= 60
                     ? ', sluit over ' + remaining + ' min'
                     : ' tot ' + fmt(s.c);
-                return { open: true, exception: !!todaySpecial, text: 'Nu open' + detail + extraNote };
+                return { open: true, exception: !!todaySpecial, text: 'Nu open' + detail };
             }
         }
 
         // Uitzonderlijk gesloten vandaag
         if (isSpecialClosed(todaySpecial)) {
             var nextOpen = findNextOpen(data, day, 1);
-            var closedText = 'Vandaag uitzonderlijk gesloten';
+            var closedText = 'Uitzonderlijk gesloten';
             if (nextOpen) closedText += ', opent ' + nextOpen;
-            return { open: false, exception: true, text: closedText + extraNote };
+            return { open: false, exception: true, text: closedText };
         }
 
         // Nog een sessie later vandaag?
         for (var i = 0; i < activeSessions.length; i++) {
             if (mins < activeSessions[i].o) {
-                return { open: false, exception: false, text: 'Gesloten, opent om ' + fmt(activeSessions[i].o) + extraNote };
+                return { open: false, exception: false, text: 'Gesloten, opent om ' + fmt(activeSessions[i].o) };
             }
         }
 
         // Volgende openingsdag
         var nextOpen = findNextOpen(data, day, 1);
         var text = nextOpen ? 'Gesloten, opent ' + nextOpen : 'Gesloten';
-        return { open: false, exception: false, text: text + extraNote };
+        return { open: false, exception: false, text: text };
     }
 
     function findNextOpen(data, currentDay, offset) {
